@@ -1,0 +1,30 @@
+<div class="row">
+	<div class="large-12 columns">
+		<h3>Продать билет на <%= @concert.band %> <small><%= @concert.date %> в <%= @hall.name %></small></h3>
+	 </div>
+</div>
+
+<% @hall.sections.each do |section| %>
+<%= form_for :ticket, url: tickets_path do |f| %>
+
+<div class="row">
+	<div class="large-12 columns">
+	<h4><%= section['name'] %></h4>
+	<%= hidden_field :ticket, :section, :value => section['name'] %>
+	<%= hidden_field :ticket, :concert_id, :value => @concert.id %>
+	<%= f.label 'Ряд' %>
+	<%= select("ticket", "row", (1..section['rows'].length - 1).to_a, include_blank: '-') %>
+	<%= f.label 'Место' %>
+	<%= select("ticket", "seat", (1..section['rows'].max).to_a, include_blank: '-') %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-12 columns">
+  	<%= f.submit "Выбрать", :class => 'button' %>
+  	<hr><br>
+	</div>
+</div>
+
+<% end %>
+<% end %>

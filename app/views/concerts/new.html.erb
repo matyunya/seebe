@@ -1,0 +1,59 @@
+<%= form_for :concert, url: concerts_path do |f| %>
+
+<div class="row">
+	<div class="large-12 columns">
+		<h1>Добавить концерт</h1>
+	  <%= f.label "Артист" %>
+	  <%= f.text_field :band %>
+	 </div>
+</div>
+
+<div class="row">
+	<div class="large-12 columns">
+	  <%= f.label "Описание" %>
+	  <%= f.text_area :description %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-12 columns">
+	<%= f.label "Площадка" %>
+	<%= select("concert", "hall_id", Hall.all.collect {|p| [ p.name, p.id ] }) %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-12 columns">
+	  <%= f.label "Дата" %>
+		<%= date_field(:concert, :date) %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-12 columns">
+	  <%= f.label "Время" %>
+		<%= time_field(:concert, :time) %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-12 columns">
+	  <%= f.label "Возрастное ограничение" %>
+		<%= select("concert", "age", [0, 6, 12, 16, 18]) %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-12 columns">
+	  <%= f.label "Афиша" %>
+		<%= f.file_field :poster %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="large-12 columns">
+  	<%= f.submit "Добавить", :class => 'button' %>
+	</div>
+</div>
+
+<% end %>
