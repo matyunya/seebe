@@ -16,10 +16,58 @@
 //= require react
 //= require react_ujs
 //= require components
-//= require foundation
 //= require react
 //= require react_ujs
 //= require components
+//= require foundation
 // require_tree .
 
-$(function(){ $(document).foundation(); });
+$(document).on('ready page:load', function () {
+  $(function(){ $(document).foundation(); });
+});
+
+;(function ($, window, document, undefined) {
+  'use strict';
+
+  Foundation.libs.alert = {
+    name : 'alert',
+
+    version : '5.5.3',
+
+    settings : {
+      callback : function () {}
+    },
+
+    init : function (scope, method, options) {
+      this.bindings(method, options);
+      jQuery(".alert-box a.close").click();
+    },
+
+    events : function () {
+      var self = this,
+          S = this.S;
+
+      $(this.scope).off('.alert').on('click.fndtn.alert', '[' + this.attr_name() + '] .close', function (e) {
+        var alertBox = S(this).closest('[' + self.attr_name() + ']'),
+            settings = alertBox.data(self.attr_name(true) + '-init') || self.settings;
+
+        e.preventDefault();
+        if (Modernizr.csstransitions) {
+            alertBox.addClass('alert-close');
+            alertBox.on('transitionend webkitTransitionEnd oTransitionEnd', function (e) {
+             // S(this).trigger('close.fndtn.alert').remove();
+              settings.callback();
+          });
+        } else {
+          alertBox.fade(2000, function () {
+           // S(this).trigger('close.fndtn.alert').remove();
+            settings.callback();
+          });
+        }
+      });
+    },
+
+    reflow : function () {}
+  };
+}(jQuery, window, window.document));
+

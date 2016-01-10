@@ -1,18 +1,17 @@
-<%= devise_error_messages! %>
-<div class="authform">
+<div class="authform row">
   <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form'}) do |f| %>
     <div class="form-group">
       <%- if devise_mapping.registerable? %>
         <%= link_to 'Зарегистрироваться', new_registration_path(resource_name), class: 'right'  %>
       <% end -%>
-      <%= f.label :email %>
+      <%= f.label :email, 'Почта' %>
       <%= f.email_field :email, :autofocus => true, class: 'form-control' %>
     </div>
     <div class="form-group">
       <%- if devise_mapping.recoverable? %>
         <%= link_to "Забыли пароль?", new_password_path(resource_name), class: 'right' %>
       <% end -%>
-      <%= f.label :password %>
+      <%= f.label :password, 'Пароль' %>
       <%= f.password_field :password, class: 'form-control' %>
     </div>
       <%= f.submit 'Войти', :class => 'button right' %>

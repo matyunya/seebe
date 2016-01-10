@@ -1,12 +1,11 @@
-<%= devise_error_messages! %>
-<div class="authform">
+<div class="authform row">
   <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :role => 'form'}) do |f| %>
-    <h3>Forgot your password?</h3>
-    <p>We'll send password reset instructions.</p>
+    <h3>Забыли пароль?</h3>
+    <p>Инструкцию по восстановлению придет к вам по почту в течение нескольких минут.</p>
     <div class="form-group">
-      <%= f.label :email %>
+      <%= f.label :email, 'Ваша почта' %>
       <%= f.email_field :email, :autofocus => true, class: 'form-control' %>
     </div>
-     <%= f.submit 'Reset Password', :class => 'button right' %>
+     <%= f.submit 'Сбросить пароль', :class => 'button left' %>
   <% end %>
 </div>

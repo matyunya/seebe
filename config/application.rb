@@ -21,6 +21,7 @@ module RailsDeviseRoles
     config.i18n.default_locale = :ru
     # For Foundation 5
     config.assets.precompile += %w( vendor/modernizr )
+    config.serve_static_assets = false
 
 
     # Do not swallow errors in after_commit/after_rollback callbacks.

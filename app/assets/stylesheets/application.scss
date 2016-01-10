@@ -1,4 +1,5 @@
 @import "foundation_and_overrides";
+@import "foundation";
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
@@ -15,15 +16,81 @@
  
  */
 
+$primary: #446CB3;
+$secondary: #ADB2BD;
+$info: #89c4f4;
+$alert: #F22613;
+$success: #2E8B57;
+$warning: #F89406;
+
+.alert-close {
+    -moz-transition-duration: 2s;
+    -webkit-transition-duration: 2s;
+    -o-transition-duration: 2s;
+    transition-duration: 2s;
+    -moz-transition-timing-function: cubic-bezier(1,.04,.91,.8);
+    -webkit-transition-timing-function: cubic-bezier(1,.04,.91,.8);
+    -o-transition-timing-function: cubic-bezier(1,.04,.91,.8);
+    transition-timing-function: cubic-bezier(1,.04,.91,.8);
+}
+
+
+
 .alert-box {
-	margin: 0;
-    padding-top:20px;
+  padding: 0.8rem;
+  border-width: 0 0 0 0.2rem;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1rem;
+  
+  &.primary {
+    border-left-color: $primary;
+    background-color: scale-color($primary, $lightness: 20%);
+    strong {
+      color: $primary;
+    }
+  }
+  &.secondary {
+    border-left-color: $secondary;
+    background-color: scale-color($secondary, $lightness: 20%);
+    strong {
+      color: $secondary;
+    }
+  }
+  &.info {
+    border-left-color: $info;
+    background-color: scale-color($info, $lightness: 20%);
+    strong {
+      color: $info;
+    }
+  }
+  &.alert {
+    border-left-color: $alert;
+    background-color: scale-color($alert, $lightness: 20%);
+    strong {
+      color: $alert;
+    }
+  }
+  &.success {
+    border-left-color: $success;
+    background-color: scale-color($success, $lightness: 20%);
+    strong {
+      color: $success;
+    }
+  }
+  &.warning {
+    border-left-color: $warning;
+    background-color: scale-color($warning, $lightness: 20%);
+    strong {
+      color: $warning;
+    }
+  }
 }
 
 main {
-	padding: 0;
-	padding-top:0px;
+    padding-top: 1rem;
 }
+
 
 .top-bar:before, .top-bar:after {
     

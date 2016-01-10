@@ -1,6 +1,5 @@
-<%= devise_error_messages! %>
-<div class="authform">
-  <h3>Edit <%= resource_name.to_s.humanize %></h3>
+<div class="authform row">
+  <h3>Редактировать профиль</h3>
   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :role => 'form'}) do |f| %>
     <div class="form-group">
       <%= f.label :name %>
@@ -25,18 +24,18 @@
       </div>
     </fieldset>
     <fieldset>
-      <p>You must enter your current password to make changes.</p>
+      <p>Введите текущий пароль, чтобы сохранить изменения.</p>
       <div class="form-group">
-        <%= f.label :current_password %>
+        <%= f.label :current_password, 'Пароль' %>
         <%= f.password_field :current_password, class: 'form-control' %>
       </div>
     </fieldset>
-    <%= f.submit 'Update', :class => 'button right' %>
+    <%= f.submit 'Обновить', :class => 'button right' %>
   <% end %>
 </div>
 
-<div class="authform">
-<h3>Cancel Account</h3>
-<p>Unhappy? We'll be sad to see you go.</p>
-<%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'button' %>
+<div class="authform row">
+<h3>Удалить профиль</h3>
+<p>Заебались? Пожалуйста, уходите.</p>
+<%= button_to "Утилизировать профиль", registration_path(resource_name), :data => { :confirm => "Точно?" }, :method => :delete, :class => 'button' %>
 </div>

@@ -16,6 +16,7 @@ group :development do
   gem 'spring'
 end
 gem 'devise'
+gem 'devise-i18n'
 gem 'foundation-rails'
 gem 'high_voltage'
 gem 'rails-i18n'

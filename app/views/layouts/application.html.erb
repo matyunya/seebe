@@ -14,6 +14,9 @@
       <%= render 'layouts/navigation' %>
     </header>
       <%= render 'layouts/messages' %>
+      <% if controller_name == 'users' %>
+        <%= devise_error_messages! %>
+      <% end %>
     <main role="main">
        <%= yield %>
     </main>

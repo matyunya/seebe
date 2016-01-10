@@ -1,9 +1,9 @@
 var Ticket = React.createClass({
   propTypes: {
     band: React.PropTypes.string,
-    row: React.PropTypes.string,
-    seat: React.PropTypes.string,
-    date: React.PropTypes.date
+    row: React.PropTypes.number,
+    seat: React.PropTypes.number,
+    date: React.PropTypes.string
   },
 
   render: function() {
