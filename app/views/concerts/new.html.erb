@@ -2,7 +2,7 @@
 
 <div class="row">
 	<div class="large-12 columns">
-		<h1>Добавить концерт</h1>
+		<h3>Добавить концерт</h3>
 	  <%= f.label "Артист" %>
 	  <%= f.text_field :band %>
 	 </div>
@@ -17,12 +17,10 @@
 
 <div class="row">
 	<div class="large-12 columns">
-	<%= f.label "Площадка" %>
-	<%= select("concert", "hall_id", Hall.all.collect {|p| [ p.name, p.id ] }) %>
+		<%= f.label "Площадка" %>
+		<%= react_component('HallForm', {halls: halls_as_json}) %>
 	</div>
 </div>
-
-<%= react_component('HallForm', {hasDancefloor: false, hasCouches: false}) %>
 
 <div class="row">
 	<div class="large-12 columns">

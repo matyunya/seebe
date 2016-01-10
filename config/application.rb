@@ -21,8 +21,12 @@ module RailsDeviseRoles
     config.i18n.default_locale = :ru
     # For Foundation 5
     config.assets.precompile += %w( vendor/modernizr )
-    config.serve_static_assets = false
 
+    # Date
+    Date::DATE_FORMATS[:default] = "%d/%m/%Y" 
+
+    # Time
+    Time::DATE_FORMATS[:default] = "%d/%m/%Y %H:%M" 
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true

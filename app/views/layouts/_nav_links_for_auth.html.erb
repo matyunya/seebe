@@ -1,6 +1,12 @@
 <% if user_signed_in? %>
+  <% if current_user.admin? %>
+    <li><%= link_to 'Пользователи', users_path %></li>
+  <% end %>
+  <% if current_user.promoter? || current_user.admin? || current_user.seller? %>
+    <li><%= link_to 'Концерты', concerts_path %></li>
+  <% end %>
+  <% if current_user.seller? || current_user.admin? %>
+    <li><%= link_to 'Билеты', tickets_path %></li>
+  <% end %>
   <li><%= link_to 'Настройки', edit_user_registration_path %></li>
-<% else %>
-  <li><%= link_to 'Войти', new_user_session_path %></li>
-  <li><%= link_to 'Зарегистрироваться', new_user_registration_path %></li>
 <% end %>

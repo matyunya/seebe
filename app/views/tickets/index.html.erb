@@ -1,8 +1,9 @@
+<div class="row" style="padding-bottom:15px">
+<h3>Билеты</h3>
 <% @tickets.each do |ticket| %>
-<div class="row">
     <div class="large-12 columns">
         <%= react_component('Ticket', {band: ticket.concert.band, seat: ticket.seat, row: ticket.row, date: ticket.concert.date}) %>
         <hr>
     </div>
-</div>
 <% end %>
+</div>

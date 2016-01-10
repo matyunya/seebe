@@ -16,16 +16,16 @@ class UsersController < AdminController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(secure_params)
-      redirect_to users_path, notice => 'Пользователь успешно обновлен.'
+      redirect_to users_path, notice: 'Пользователь успешно обновлен.'
     else
-      redirect_to users_path, alert => 'Невозможно обновить пользователя.'
+      redirect_to users_path, alert: 'Невозможно обновить пользователя.'
     end
   end
 
   def destroy
     user = User.find(params[:id])
     user.destroy
-    redirect_to root_path, notice => 'Пользователь удален.'
+    redirect_to root_path, notice: 'Пользователь удален.'
   end
 
   private

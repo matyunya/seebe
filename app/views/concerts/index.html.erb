@@ -1,14 +1,12 @@
+<div class="row" style="padding-bottom: 15px">
+<h3>Концерты</h3>
 <% if current_user.promoter? %>
-<div class="row">
 	<div class="large-12 columns">
-		<h1><%= link_to "Добавить концерт", action: "new" %></h1>
+		<h3><%= link_to "Добавить концерт", action: "new" %></h3>
 	</div>
-</div>
-<hr>
 <% end %>
 
 <% @concerts.each do |concert| %>
-<div class="row">
 	<div class="large-2 columns">
 	   <%= image_tag concert.poster.url, width: '100' %>
 	</div>
@@ -25,5 +23,4 @@
         <% end %>
     </div>
     <hr>
-</div>
 <% end %>

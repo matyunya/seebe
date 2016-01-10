@@ -55,12 +55,10 @@ $(document).on('ready page:load', function () {
         if (Modernizr.csstransitions) {
             alertBox.addClass('alert-close');
             alertBox.on('transitionend webkitTransitionEnd oTransitionEnd', function (e) {
-             // S(this).trigger('close.fndtn.alert').remove();
               settings.callback();
           });
         } else {
-          alertBox.fade(2000, function () {
-           // S(this).trigger('close.fndtn.alert').remove();
+          alertBox.fade(1200, function () {
             settings.callback();
           });
         }
