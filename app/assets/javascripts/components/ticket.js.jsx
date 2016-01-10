@@ -1,24 +1,15 @@
 var Ticket = React.createClass({
   propTypes: {
-    title: React.PropTypes.string,
-    body: React.PropTypes.string,
-    published: React.PropTypes.bool
-  },
-
-  shouldComponentUpdate: function (nextProps, nextState) {
-    return (
-      nextProps.title !== this.props.title ||
-      nextProps.body !== this.props.body ||
-      nextState.published !== this.state.published
-    );
+    band: React.PropTypes.string,
+    row: React.PropTypes.string,
+    seat: React.PropTypes.string,
+    date: React.PropTypes.date
   },
 
   render: function() {
     return (
       <div>
-        <div>Title: {this.props.title}</div>
-        <div>Body: {this.props.body}</div>
-        <div>Published: {this.props.published}</div>
+        <div>{this.props.band} ({this.props.date}) Ряд: {this.props.row} Место: {this.props.seat}</div>
       </div>
     );
   }

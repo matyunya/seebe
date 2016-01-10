@@ -1,5 +1,7 @@
 # tickets
-class TicketsController < ApplicationController
+class TicketsController < AdminController
+  before_action :authenticate_seller || :authenticate_admin
+
   def index
     @tickets = Ticket.all if current_user.admin?
     @tickets = Ticket.find_by user_id: current_user.id if current_user.seller?

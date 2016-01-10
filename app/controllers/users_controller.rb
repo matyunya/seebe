@@ -1,7 +1,7 @@
 # users contoller
-class UsersController < ApplicationController
+class UsersController < AdminController
   before_action :authenticate_user!
-  before_action :admin_only, :except => :show
+  before_action :authenticate_admin, :except => :show
 
   def index
     @users = User.all
@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     return false unless current_user.admin? || @user == current_user
-    redirect_to :back, alert => 'Доступ запрещен.'
+    redirect_to root_path, alert => 'Доступ запрещен.'
   end
 
   def update
@@ -25,15 +25,10 @@ class UsersController < ApplicationController
   def destroy
     user = User.find(params[:id])
     user.destroy
-    redirect_to users_path, notice => 'Пользователь удален.'
+    redirect_to root_path, notice => 'Пользователь удален.'
   end
 
   private
-
-  def admin_only
-    return false unless current_user.admin?
-    redirect_to :back, alert => 'Доступ запрещен.'
-  end
 
   def secure_params
     params.require(:user).permit(:role)

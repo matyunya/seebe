@@ -1,6 +1,5 @@
 # Concerts
-class ConcertsController < ApplicationController
-  before_action :authenticate_user!
+class ConcertsController < AdminController
 
   def index
     @halls = Hall.all
@@ -9,6 +8,10 @@ class ConcertsController < ApplicationController
 
   def show
     @article = Concert.find(params[:id])
+  end
+
+  def new
+    authenticate_promoter
   end
 
   def create
