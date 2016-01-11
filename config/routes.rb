@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :users
   resources :concerts
   resources :tickets
+  post 'concert/set_moderated', to: 'concerts#set_moderated'
 end

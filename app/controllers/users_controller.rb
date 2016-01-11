@@ -1,7 +1,7 @@
 # users contoller
 class UsersController < AdminController
   before_action :authenticate_user!
-  before_action :authenticate_admin, :except => :show
+  #before_action :authenticate_admin, :except => :show
 
   def index
     @users = User.all

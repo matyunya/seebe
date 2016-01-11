@@ -7,6 +7,7 @@
 <% end %>
 
 <% @concerts.each do |concert| %>
+    <% next if current_user.seller? && concert.status != Concert::MODERATED %>
 	<div class="large-2 columns">
 	   <%= image_tag concert.poster.url, width: '100' %>
 	</div>
@@ -15,11 +16,17 @@
         <h3><%= concert.band %> <b><%= concert.date %> <small><%= User.find(concert.user_id).email %></small></h3>
         <h4><%= Hall.find(concert.hall_id).name %></h4>
 
-        <% if current_user.seller? %>
+        <% if current_user.seller? && concert.status == Concert::MODERATED %>
             <%= link_to 'Продать билет', new_ticket_path(:concert => concert.id) %><br>
         <% end %>
+
         <% if current_user.promoter? %>
             <%= link_to 'Удалить концерт', concert_path(concert.id), method: :delete, data: {confirm: "Вы уверены?"} %><br>
+        <% end %>
+
+        <% if current_user.admin? && concert.status != Concert::MODERATED %>
+            <h3><%= button_to "Отмодерирован", {
+              :action => 'set_moderated', :id => concert.id }, {:method => :post, :class => 'button left small'} %></h3>
         <% end %>
     </div>
     <hr>

@@ -30,6 +30,13 @@ class ConcertsController < AdminController
     redirect_to concerts_path, notice: 'Концерт удален.'
   end
 
+  def set_moderated
+    concert = Concert.find(params[:id])
+    concert.moderated!
+    concert.save
+    redirect_to concerts_path, notice: 'Концерт отмодерирован.'
+  end
+
   def halls_as_json
     @json = ''
     Hall.all.each_with_index do |hall, index|
