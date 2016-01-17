@@ -12,6 +12,9 @@ class ConcertsController < AdminController
 
   def new
     authenticate_promoter
+    unless check_promoter_fields?
+      redirect_to '/users/edit', alert: 'Заполните ваше имя, ИНН и и юридический адрес'
+    end
   end
 
   def create
@@ -47,6 +50,11 @@ class ConcertsController < AdminController
   helper_method :halls_as_json
 
   private
+
+  def check_promoter_fields?
+    current_user.inn.present? && current_user.name.present? && current_user.address.present?
+  end
+
   def concert_params
     params.require(:concert).permit(
       :band, :description, :poster, :hall_id, :date, :time, :concert_id, :age)

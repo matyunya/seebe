@@ -17,17 +17,30 @@ class TicketsController < AdminController
     @ticket = Ticket.create(ticket_params)
     @ticket.user_id = current_user.id
     if @ticket.save
+      print
       redirect_to tickets_path, notice: 'Билет продан.'
     else
-      redirect_to tickets_path, alert: 'Ошибка.'
+      redirect_to tickets_path, alert: 'Ошибка при сохванение.'
     end
   end
 
   def destroy
-    ticket = Ticket.find(params[:id])
-    ticket.destroy
-    redirect_to tickets_path, notice => 'Билет удален.'
+    @ticket = Ticket.find(params[:id])
+    if @ticket.destroy
+      redirect_to tickets_path, notice: 'Билет удален.'
+    end
+      redirect_to tickets_path, alert: 'Билет не был удален'
   end
+
+  private
+
+  def print
+    Prawn::Document.generate("hello.pdf") do
+      text "Hello World!"
+    end
+  end
+
+  protected
 
   def ticket_params
     params.require(:ticket).permit(

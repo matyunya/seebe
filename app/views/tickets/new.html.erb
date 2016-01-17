@@ -13,9 +13,7 @@
 	<%= hidden_field :ticket, :section, :value => section['name'] %>
 	<%= hidden_field :ticket, :concert_id, :value => @concert.id %>
 	<%= f.label 'Ряд' %>
-	<%= select("ticket", "row", (1..section['rows'].length - 1).to_a, include_blank: '-') %>
 	<%= f.label 'Место' %>
-	<%= select("ticket", "seat", (1..section['rows'].max).to_a, include_blank: '-') %>
 	</div>
 </div>
 

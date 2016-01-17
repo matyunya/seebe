@@ -398,12 +398,18 @@
          },
          {
             "name":"Танцпол",
-            "dancefloor":true
+            "dancefloor":true,
+            "rows": [{
+               "seats":200
+            }]
          },
          {
             "name":"Диваны",
             "couch":true,
-            "count":16
+            "count":16,
+            "rows": [{
+               "seats":16
+            }]
          }
       ]
    },

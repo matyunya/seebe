@@ -9,9 +9,20 @@
       <%= f.label :email, 'Почта' %>
       <%= f.email_field :email, class: 'form-control' %>
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+        <div>Ждем подтверждение для почты: <%= resource.unconfirmed_email %></div>
       <% end %>
     </div>
+    <% if current_user.promoter? %>
+      <div class="form-group">
+        <%= f.label :inn, 'ИНН' %>
+        <%= f.text_field :inn, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :address, 'Юридический адрес' %>
+        <%= f.text_field :address, class: 'form-control' %>
+      </div>
+    <% end %>
     <fieldset>
       <h3>Поменять пароль</h3>
       <div class="form-group">
@@ -23,14 +34,7 @@
         <%= f.password_field :password_confirmation, class: 'form-control' %>
       </div>
     </fieldset>
-    <fieldset>
-      <p>Введите текущий пароль, чтобы сохранить изменения.</p>
-      <div class="form-group">
-        <%= f.label :current_password, 'Пароль' %>
-        <%= f.password_field :current_password, class: 'form-control' %>
-      </div>
-    </fieldset>
-    <%= f.submit 'Обновить', :class => 'button right' %>
+    <%= f.submit 'Обновить', :class => 'button left' %>
   <% end %>
 </div>
 

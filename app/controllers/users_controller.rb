@@ -1,7 +1,7 @@
 # users contoller
 class UsersController < AdminController
   before_action :authenticate_user!
-  #before_action :authenticate_admin, :except => :show
+  before_action :authenticate_admin, :except => :show
 
   def index
     @users = User.all
@@ -10,7 +10,7 @@ class UsersController < AdminController
   def show
     @user = User.find(params[:id])
     return false unless current_user.admin? || @user == current_user
-    redirect_to root_path, alert => 'Доступ запрещен.'
+    redirect_to root_path, alert: 'Доступ запрещен.'
   end
 
   def update
@@ -31,6 +31,12 @@ class UsersController < AdminController
   private
 
   def secure_params
-    params.require(:user).permit(:role)
+    params.require(:user).permit(:role, :inn, :address, :name, :email)
+  end
+
+   protected
+
+  def update_resource(resource, params)
+    resource.update_without_password(params)
   end
 end

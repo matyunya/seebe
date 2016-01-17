@@ -27,6 +27,7 @@ gem 'react-rails', '~> 1.5.0'
 gem 'rails_12factor', group: :production
 gem 'puma'
 gem 'simple_form'
+gem 'prawn'
 
 group :development do
   gem 'better_errors'
