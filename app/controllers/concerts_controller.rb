@@ -57,6 +57,6 @@ class ConcertsController < AdminController
 
   def concert_params
     params.require(:concert).permit(
-      :band, :description, :poster, :hall_id, :date, :time, :concert_id, :age)
+      :band, :description, :poster, :hall_id, :date, :time, :concert_id, :age, :prices => [])
   end
 end

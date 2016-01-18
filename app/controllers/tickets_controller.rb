@@ -32,6 +32,15 @@ class TicketsController < AdminController
       redirect_to tickets_path, alert: 'Билет не был удален'
   end
 
+  def sections_as_json
+    @json = ''
+    @concert.hall.sections.each_with_index do |hall, index|
+      @json += {index: hall}.to_json
+    end
+  end
+
+  helper_method :sections_as_json
+
   private
 
   def print

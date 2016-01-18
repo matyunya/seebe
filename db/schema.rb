@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160112183225) do
+ActiveRecord::Schema.define(version: 20160117144825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(version: 20160112183225) do
   end
 
   create_table "concerts", force: :cascade do |t|
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "band"
     t.text     "description"
     t.string   "poster_file_name"
@@ -36,22 +36,43 @@ ActiveRecord::Schema.define(version: 20160112183225) do
     t.time     "time"
     t.integer  "age"
     t.integer  "status"
+    t.integer  "prices",              default: [],              array: true
   end
 
   create_table "halls", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "price_types"
+    t.string   "name"
+    t.integer  "sections",    default: [],              array: true
+  end
+
+  create_table "rows", force: :cascade do |t|
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "seats"
+    t.integer  "section_id"
+    t.integer  "prices",     default: [],              array: true
+    t.integer  "number"
+  end
+
+  create_table "sections", force: :cascade do |t|
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "name"
+    t.integer  "hall_id"
+    t.integer  "rows",       default: [],              array: true
   end
 
   create_table "tickets", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "concert_id"
-    t.string   "section"
     t.integer  "row"
     t.integer  "seat"
     t.integer  "user_id"
     t.integer  "price"
+    t.integer  "section_id"
   end
 
   create_table "users", force: :cascade do |t|

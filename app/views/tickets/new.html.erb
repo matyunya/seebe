@@ -4,25 +4,18 @@
 	 </div>
 </div>
 
-<% @hall.sections.each do |section| %>
 <%= form_for :ticket, url: tickets_path do |f| %>
 
 <div class="row">
-	<div class="large-12 columns">
-	<h4><%= section['name'] %></h4>
-	<%= hidden_field :ticket, :section, :value => section['name'] %>
-	<%= hidden_field :ticket, :concert_id, :value => @concert.id %>
-	<%= f.label 'Ряд' %>
-	<%= f.label 'Место' %>
-	</div>
+    <div class="large-12 columns">
+        <%= f.label "Сектор" %>
+        <%= react_component('TicketForm', {sections: sections_as_json}) %>
+    </div>
 </div>
 
-<div class="row">
-	<div class="large-12 columns">
-  	<%= f.submit "Выбрать", :class => 'button' %>
-  	<hr><br>
-	</div>
+    <div class="large-12 columns">
+    <%= f.submit "Добавить", :class => 'button' %>
+    </div>
 </div>
 
-<% end %>
 <% end %>
