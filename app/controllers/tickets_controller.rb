@@ -20,7 +20,7 @@ class TicketsController < AdminController
       print
       redirect_to tickets_path, notice: 'Билет продан.'
     else
-      redirect_to tickets_path, alert: 'Ошибка при сохванение.'
+      redirect_to tickets_path, alert: 'Ошибка при сохранении.'
     end
   end
 
@@ -39,7 +39,13 @@ class TicketsController < AdminController
     end
   end
 
+  def tickets_as_json
+    @json = ''
+    Ticket.where(concert_id: @concert.id).pluck(:row, :seat).to_json
+  end
+
   helper_method :sections_as_json
+  helper_method :tickets_as_json
 
   private
 
