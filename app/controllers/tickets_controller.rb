@@ -55,7 +55,7 @@ class TicketsController < AdminController
             площадка: #{ticket.concert.hall.name}\n
             дата: #{ticket.concert.date} #{ticket.concert.time}\n
             место: #{ticket.section.name} #{ticket.row} ряд #{ticket.seat} место\n
-            цена: #{ticket.price} руб.\n
+            цена: #{ticket.price}\n
             кассир: #{ticket.user.name}\n
             орг: #{ticket.concert.user.name}\n
             инн: #{ticket.concert.user.inn}\n

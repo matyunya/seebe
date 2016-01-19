@@ -1,5 +1,3 @@
-ActiveRecord::Base.extend ActiveHash::Associations::ActiveRecordExtensions
-
 # concerts
 class Concert < ActiveRecord::Base
   CREATED   = 1
@@ -21,7 +19,7 @@ class Concert < ActiveRecord::Base
             presence: true
   has_many :tickets
   belongs_to :user
-  belongs_to_active_hash :hall
+  belongs_to :hall
 
   validates_inclusion_of :status, :in => STATUSES.keys,
     :message => "{{value}} must be in #{STATUSES.values.join ','}"
