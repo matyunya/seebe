@@ -10,5 +10,5 @@
     <% end %>
       <%= f.submit 'Обновить', :class => 'tiny button' %>
   <% end %>
-  <%= link_to("Удалить пользователя", user_path(user), :data => { :confirm => "Вы уверены?" }, :method => :delete, :class => 'tiny button alert') unless user == current_user %>
+  <%= link_to("Удалить", user_path(user), :data => { :confirm => "Вы уверены?" }, :method => :delete, :class => 'tiny button alert') unless user == current_user %>
   <hr>

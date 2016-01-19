@@ -1,6 +1,5 @@
 # Concerts
 class ConcertsController < AdminController
-
   def index
     @halls = Hall.all
     @concerts = Concert.all

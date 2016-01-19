@@ -17,8 +17,8 @@ class TicketsController < AdminController
     @ticket = Ticket.create(ticket_params)
     @ticket.user_id = current_user.id
     if @ticket.save
-      print
-      redirect_to tickets_path, notice: 'Билет продан.'
+      print(@ticket)
+      #redirect_to tickets_path, notice: 'Билет продан.'
     else
       redirect_to tickets_path, alert: 'Ошибка при сохранении.'
     end
@@ -48,10 +48,25 @@ class TicketsController < AdminController
 
   private
 
-  def print
-    Prawn::Document.generate("hello.pdf") do
-      text "Hello World!"
+  def print(ticket)
+    Prawn::Document.generate("#{Rails.root}/public/hello.pdf") do
+      font("#{Rails.root}/app/assets/fonts/OpenSansCondensedLight.ttf")
+      text "артист: #{ticket.concert.band}\n
+            площадка: #{ticket.concert.hall.name}\n
+            дата: #{ticket.concert.date} #{ticket.concert.time}\n
+            место: #{ticket.section.name} #{ticket.row} ряд #{ticket.seat} место\n
+            цена: #{ticket.price} руб.\n
+            кассир: #{ticket.user.name}\n
+            орг: #{ticket.concert.user.name}\n
+            инн: #{ticket.concert.user.inn}\n
+            адрес: #{ticket.concert.user.address}", :size => 11
     end
+    
+    send_file(
+      "#{Rails.root}/public/hello.pdf",
+      filename: "#{ticket.concert.band} #{ticket.seat}:#{ticket.row}.pdf",
+      type: "application/pdf"
+    )
   end
 
   protected

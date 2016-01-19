@@ -20,6 +20,7 @@ class Concert < ActiveRecord::Base
             :poster, :hall_id, :user_id, :age,
             presence: true
   has_many :tickets
+  belongs_to :user
   belongs_to_active_hash :hall
 
   validates_inclusion_of :status, :in => STATUSES.keys,

@@ -2,6 +2,7 @@
 class Ticket < ActiveRecord::Base
   belongs_to :concert
   belongs_to :user
+  belongs_to :section
   validates :section_id, :row, :seat, presence: true
   validates :concert_id, uniqueness: { scope: [:row, :seat] }, presence: true
 
