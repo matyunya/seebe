@@ -40,7 +40,6 @@ class TicketsController < AdminController
   end
 
   def tickets_as_json
-    @json = ''
     Ticket.where(concert_id: @concert.id).pluck(:row, :seat).to_json
   end
 
@@ -59,6 +58,6 @@ class TicketsController < AdminController
 
   def ticket_params
     params.require(:ticket).permit(
-      :section, :row, :seat, :hall_id, :concert_id)
+      :section_id, :row, :seat, :hall_id, :concert_id)
   end
 end

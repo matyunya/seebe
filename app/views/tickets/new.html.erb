@@ -6,10 +6,14 @@
 </div>
 
 <%= form_for :ticket, url: tickets_path do |f| %>
-
+<%= hidden_field(:ticket, :concert_id, :value => @concert.id) %>
 <div class="row">
     <div class="large-12 columns">
-        <%= react_component('TicketForm', {sections: sections_as_json, tickets: tickets_as_json}) %>
+        <%= react_component('TicketForm', {
+            sections: sections_as_json,
+            tickets: tickets_as_json,
+            prices: @concert.prices
+            }, {prerender: true}) %>
     </div>
 </div>
 

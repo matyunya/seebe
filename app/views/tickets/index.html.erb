@@ -2,7 +2,13 @@
 <h3>Билеты</h3>
 <% @tickets.each do |ticket| %>
     <div class="large-12 columns">
-        <%= react_component('Ticket', {band: ticket.concert.band, seat: ticket.seat, row: ticket.row, date: ticket.concert.date}) %>
+        <%= react_component('Ticket', {
+            band: ticket.concert.band,
+            seat: ticket.seat,
+            row: ticket.row,
+            date: ticket.concert.date,
+            price: ticket.price
+        }) %> <small><%= User.find(ticket.user_id).name %></small>
         <hr>
     </div>
 <% end %>

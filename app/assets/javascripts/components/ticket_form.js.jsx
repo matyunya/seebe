@@ -1,7 +1,8 @@
 var TicketForm = React.createClass({
   propTypes: {
     sections: React.PropTypes.array,
-    tickets: React.PropTypes.string
+    tickets: React.PropTypes.string,
+    prices: React.PropTypes.array
   },
   getInitialState: function() {
      return {
@@ -23,7 +24,7 @@ var TicketForm = React.createClass({
             return <option value={section.id} key={section.id}>{section.name}</option>;
           })}
         </select>
-        <RowForm section={this.props.sections.filter(this.sections)} tickets={this.props.tickets} />
+        <RowForm section={this.props.sections.filter(this.sections)} tickets={this.props.tickets} prices={this.props.prices} />
       </div>
           )
   }
@@ -32,7 +33,8 @@ var TicketForm = React.createClass({
 var RowForm = React.createClass({
   propTypes: {
     section: React.PropTypes.array,
-    tickets: React.PropTypes.string
+    tickets: React.PropTypes.string,
+    prices: React.PropTypes.array
   },
   getInitialState: function() {
     return {
@@ -61,10 +63,10 @@ var RowForm = React.createClass({
     }
     return <div>
             <label>Ряд</label>
-            <select name="ticket[row_id]" id="ticket_section_id" onChange={this.change}>
+            <select name="ticket[row]" id="ticket_row" onChange={this.change}>
             {rows}
            </select>
-           <SeatForm row={this.props.section[0].rows.filter(this.rows)} tickets={this.props.tickets} />
+           <SeatForm row={this.props.section[0].rows.filter(this.rows)} tickets={this.props.tickets} prices={this.props.prices} />
            </div>;
   }
 });
@@ -72,12 +74,18 @@ var RowForm = React.createClass({
 var SeatForm = React.createClass({
   propTypes: {
     row: React.PropTypes.array,
-    tickets: React.PropTypes.string
+    tickets: React.PropTypes.string,
+    prices: React.PropTypes.array
   },
   getInitialState: function() {
      return {
-         row: []
+         row: [{seats: 40}]
      }
+  },
+  getDefaultProps: function() {
+    return {
+      row: [{seats: 40}]
+    }
   },
   change: function(event) {
     this.setState({value: event.target.value});
@@ -92,7 +100,8 @@ var SeatForm = React.createClass({
     for (var i=1; i <= length; ++i) {
       var seat = '[' + this.props.row[0].number + ',' + i + ']';
       if (this.props.tickets.indexOf(seat) < 0) {
-        rows.push(<option key={i} value={i}>{i}</option>);
+        var priceType = this.props.row[0].prices[i-1];
+        rows.push(<option key={i} value={i}>{i} {this.props.prices[priceType]} р.</option>);
       }
     }
     return <div><label>Место</label><select name="ticket[seat]" id="ticket_seat" onChange={this.change} >{rows}</select></div>;
