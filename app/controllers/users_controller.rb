@@ -31,7 +31,7 @@ class UsersController < AdminController
   private
 
   def secure_params
-    params.require(:user).permit(:role, :inn, :address, :name, :email)
+    params.require(:user).permit(:role, :inn, :address, :name, :email, :cashbox_id)
   end
 
    protected

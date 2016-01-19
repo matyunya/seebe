@@ -1,12 +1,14 @@
-<td>
-  <%= link_to user.email, user %>
-</td>
-<td>
+
+  <p><%= link_to user.email, user %></p>
+
   <%= form_for(user) do |f| %>
+    <%= f.label "Роль" %>
     <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}) %>
-    <%= f.submit 'Change Role', :class => 'button-xs' %>
+    <% if user.seller? %>
+      <%= f.label "Касса" %>
+      <%= f.select(:cashbox_id, Cashbox.all.map {|cashbox| [cashbox.name,cashbox.id]}) %>
+    <% end %>
+      <%= f.submit 'Обновить', :class => 'tiny button' %>
   <% end %>
-</td>
-<td>
-  <%= link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'button-xs') unless user == current_user %>
-</td>
+  <%= link_to("Удалить пользователя", user_path(user), :data => { :confirm => "Вы уверены?" }, :method => :delete, :class => 'tiny button alert') unless user == current_user %>
+  <hr>
