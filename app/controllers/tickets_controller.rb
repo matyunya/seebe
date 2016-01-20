@@ -43,8 +43,13 @@ class TicketsController < AdminController
     Ticket.where(concert_id: @concert.id).pluck(:row, :seat).to_json
   end
 
+  def prices_as_json
+    @concert.prices.to_json
+  end
+
   helper_method :sections_as_json
   helper_method :tickets_as_json
+  helper_method :prices_as_json
 
   private
 
