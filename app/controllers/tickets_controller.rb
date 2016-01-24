@@ -44,7 +44,7 @@ class TicketsController < AdminController
   end
 
   def prices_as_json
-    @concert.prices.to_json
+    @concert.prices
   end
 
   helper_method :sections_as_json

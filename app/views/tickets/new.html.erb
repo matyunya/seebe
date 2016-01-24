@@ -9,6 +9,12 @@
 <%= hidden_field(:ticket, :concert_id, :value => @concert.id) %>
 <div class="row">
     <div class="large-12 columns">
+      <%= react_component('TicketForm', {
+          sections: sections_as_json,
+          tickets: tickets_as_json,
+          prices: prices_as_json
+      }) %>
+
     </div>
 </div>
 
