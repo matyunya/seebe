@@ -54,17 +54,23 @@ class TicketsController < AdminController
   private
 
   def print(ticket)
-    Prawn::Document.generate("#{Rails.root}/public/hello.pdf") do
+
+    Prawn::Document.generate("#{Rails.root}/public/hello.pdf", 
+      {:page_size => [424, 1200], :page_layout => :landscape}) do
       font("#{Rails.root}/app/assets/fonts/OpenSansCondensedLight.ttf")
-      text "артист: #{ticket.concert.band}\n
-            площадка: #{ticket.concert.hall.name}\n
-            дата: #{ticket.concert.date} #{ticket.concert.time}\n
-            место: #{ticket.section.name} #{ticket.row} ряд #{ticket.seat} место\n
-            цена: #{ticket.price}\n
-            кассир: #{ticket.user.name}\n
-            орг: #{ticket.concert.user.name}\n
-            инн: #{ticket.concert.user.inn}\n
-            адрес: #{ticket.concert.user.address}", :size => 11
+      column_box([0, cursor], :columns => 3, :width => bounds.width - 200) do
+        age = "#{Rails.root}/app/assets/images/age/#{ticket.concert.age}.png"
+        image age, :at => [900,-50], :scale => 1.3
+        text "артист: #{ticket.concert.band}\n
+              площадка: #{ticket.concert.hall.name}\n
+              дата: #{ticket.concert.date}\n\n\n\n\n\n\n
+              место: #{ticket.section.name} #{ticket.row} ряд #{ticket.seat} место\n
+              цена: #{ticket.price}\n
+              кассир: #{ticket.user.name}\n
+              орг: #{ticket.concert.user.name}\n\n\n\n\n\n
+              инн: #{ticket.concert.user.inn}\n
+              адрес: #{ticket.concert.user.address}", :size => 24
+        end
     end
     
     send_file(

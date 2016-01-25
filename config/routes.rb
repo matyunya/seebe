@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :cashboxes
   resources :rows
   resources :sections
   resources :halls
