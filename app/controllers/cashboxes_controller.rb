@@ -1,5 +1,5 @@
 class CashboxesController < ApplicationController
-  before_action :set_cashbox, only: [:show, :edit, :update, :destroy]
+  before_action :set_cashbox, only: [:show, :edit, :update, :destroy, :transfer]
 
   # GET /cashboxes
   # GET /cashboxes.json
@@ -48,6 +48,18 @@ class CashboxesController < ApplicationController
         format.html { render :edit }
         format.json { render json: @cashbox.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def transfer
+    @cashbox.tickets.each do |t|
+      t.transfer = true
+      t.save
+    end
+
+    respond_to do |format|
+      format.html { redirect_to cashboxes_url, notice: 'Инкассация проведена успешно.' }
+      format.json { head :no_content }
     end
   end
 

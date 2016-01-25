@@ -5,8 +5,11 @@
   <% if current_user.promoter? || current_user.admin? || current_user.seller? %>
     <li><%= link_to 'Концерты', concerts_path %></li>
   <% end %>
-  <% if current_user.seller? || current_user.admin? %>
+  <% if current_user.seller? ||current_user.admin? %>
     <li><%= link_to 'Билеты', tickets_path %></li>
+  <% end %>
+  <% if current_user.admin? %>
+    <li><%= link_to 'Кассы', cashboxes_path %></li>
   <% end %>
   <li><%= link_to 'Настройки', edit_user_registration_path %></li>
 <% end %>

@@ -1,11 +1,8 @@
 # tickets
 class TicketsController < AdminController
-  before_action :authenticate_seller || :authenticate_admin
-
   def index
     @tickets = Ticket.all if current_user.admin?
-    @tickets = Ticket.find_by user_id: current_user.id if current_user.seller?
-    @tickets = Ticket.all
+    @tickets = Ticket.where user_id: current_user.id if current_user.seller?
   end
 
   def new
@@ -16,6 +13,7 @@ class TicketsController < AdminController
   def create
     @ticket = Ticket.create(ticket_params)
     @ticket.user_id = current_user.id
+    @ticket.cashbox_id = current_user.cashbox_id
     if @ticket.save
       print(@ticket)
       #redirect_to tickets_path, notice: 'Билет продан.'

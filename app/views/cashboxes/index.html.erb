@@ -1,25 +1,20 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Кассы</h1>
+<h3>Кассы</h3>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<% @cashboxes.each do |cashbox| %>
+<div class="row">
+<%= cashbox.name %>
+ <%= cashbox.total %> руб. 
+<%= button_to 'Перевести', {
+  :controller => 'cashboxes',
+  :action => 'transfer',
+  :id => cashbox.id},
+  {:class => 'button tiny'} unless cashbox.id == 0 %>
+</div>
 
-  <tbody>
-    <% @cashboxes.each do |cashbox| %>
-      <tr>
-        <td><%= link_to 'Show', cashbox %></td>
-        <td><%= link_to 'Edit', edit_cashbox_path(cashbox) %></td>
-        <td><%= link_to 'Destroy', cashbox, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= "<hr>".html_safe if cashbox.id == 0 %>
+<% end %>
 
 <br>
-
-<%= link_to 'New Cashbox', new_cashbox_path %>
+<%= link_to 'Добавить кассу', new_cashbox_path %>
