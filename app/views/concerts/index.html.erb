@@ -2,7 +2,7 @@
 <h3>Концерты</h3>
 <% if current_user.promoter? %>
 	<div class="large-12 columns">
-		<h3><%= link_to "Добавить концерт", action: "new" %></h3>
+		<h3><%= link_to "Добавить концерт", { :action => 'new' }, {:class => 'button left large'} %></h3>
 	</div>
 <% end %>
 
@@ -18,16 +18,16 @@
         <p><i>Цены: <%= concert.prices.join(', ') %></i></p>
 
         <% if current_user.seller? && concert.status == Concert::MODERATED %>
-            <%= link_to 'Продать билет', new_ticket_path(:concert => concert.id) %><br>
-        <% end %>
-
-        <% if current_user.promoter? || current_user.admin? %>
-            <%= button_to 'Удалить концерт', concert_path(concert.id), method: :delete, :class => 'button left small', data: {confirm: "Вы уверены?"} %><br>
+            <%= link_to 'Продать билет', new_ticket_path(:concert => concert.id), {:class => 'button left small'} %>
         <% end %>
 
         <% if current_user.admin? && concert.status != Concert::MODERATED %>
             <%= button_to "Отмодерирован", {
               :action => 'set_moderated', :id => concert.id }, {:method => :post, :class => 'button left small'} %>
+        <% end %>
+
+        <% if current_user.promoter? || current_user %>
+            <%= button_to 'Удалить концерт', concert_path(concert.id), method: :delete, :class => 'button left small alert', data: {confirm: "Вы уверены?"} %>
         <% end %>
     </div>
     <hr>
