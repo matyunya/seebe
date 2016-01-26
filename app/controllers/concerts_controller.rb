@@ -2,7 +2,7 @@
 class ConcertsController < AdminController
   def index
     @halls = Hall.all
-    @concerts = Concert.all
+    @concerts = Concert.all.where(:archive => false)
   end
 
   def show
@@ -28,8 +28,9 @@ class ConcertsController < AdminController
 
   def destroy
     concert = Concert.find(params[:id])
-    concert.destroy
-    redirect_to concerts_path, notice: 'Концерт удален.'
+    concert.archive = true
+    concert.save
+    redirect_to concerts_path, notice: 'Концерт перемещен в архив.'
   end
 
   def set_moderated

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160125161807) do
+ActiveRecord::Schema.define(version: 20160126170222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(version: 20160125161807) do
   end
 
   create_table "concerts", force: :cascade do |t|
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "band"
     t.text     "description"
     t.string   "poster_file_name"
@@ -37,7 +37,8 @@ ActiveRecord::Schema.define(version: 20160125161807) do
     t.time     "time"
     t.integer  "age"
     t.integer  "status"
-    t.integer  "prices",              default: [],              array: true
+    t.integer  "prices",              default: [],                 array: true
+    t.boolean  "archive",             default: false
   end
 
   create_table "halls", force: :cascade do |t|

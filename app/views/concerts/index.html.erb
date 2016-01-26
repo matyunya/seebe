@@ -21,8 +21,8 @@
             <%= link_to 'Продать билет', new_ticket_path(:concert => concert.id) %><br>
         <% end %>
 
-        <% if current_user.promoter? %>
-            <%= link_to 'Удалить концерт', concert_path(concert.id), method: :delete, data: {confirm: "Вы уверены?"} %><br>
+        <% if current_user.promoter? || current_user.admin? %>
+            <%= button_to 'Удалить концерт', concert_path(concert.id), method: :delete, :class => 'button left small', data: {confirm: "Вы уверены?"} %><br>
         <% end %>
 
         <% if current_user.admin? && concert.status != Concert::MODERATED %>
