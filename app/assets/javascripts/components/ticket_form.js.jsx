@@ -6,28 +6,44 @@ var TicketForm = React.createClass({
   },
   getInitialState: function() {
      return {
-         value: this.props.sections[0].id,
+         section: this.props.sections[0].id,
          row: this.props.sections[0].rows[0].number,
          seat: this.props.sections[0].rows[0].seats[0]
-
      }
   },
   change: function(event) {
-    this.setState({value: event.target.value});
+    this.setState({section: event.target.value});
   },
+
+  onChangeSeat: function(event) {
+    this.setState({seat: event.target.value});
+  },
+
+  onChangeRow: function(event) {
+    this.setState({row: event.target.value});
+  },
+
+
   sections: function(section) {
-    return section.id == this.state.value;
+    return section.id == this.state.section;
   },
   render: function() {
     return (
       <div>
         <label>Секция</label>
-        <select name="ticket[section_id]" id="ticket_section_id" onChange={this.change} value={this.state.value}>
+        <select name="ticket[section_id]" id="ticket_section_id" onChange={this.change} value={this.state.section}>
           {this.props.sections.map(function(section) {
             return <option value={section.id} key={section.id}>{section.name}</option>;
           })}
         </select>
-        <RowForm section={this.props.sections.filter(this.sections)} tickets={this.props.tickets} prices={this.props.prices} />
+        <RowForm 
+              row={this.state.row} 
+              onChange={this.onRowChange} 
+              onSeatChange={this.onSeatChange}
+              seat={this.state.seat}
+              section={this.props.sections.filter(this.sections)}
+              tickets={this.props.tickets}
+              prices={this.props.prices} />
       </div>
           )
   }
@@ -67,10 +83,13 @@ var RowForm = React.createClass({
     }
     return <div>
             <label>Ряд</label>
-            <select name="ticket[row]" id="ticket_row" onChange={this.change}>
+            <select name="ticket[row]" id="ticket_row" onChange={this.props.onChangeRow} value={this.props.row}>
             {rows}
            </select>
-           <SeatForm onChange={this.onChangeSeat} value={this.state.seat} row={this.props.section[0].rows.filter(this.rows)} tickets={this.props.tickets} prices={this.props.prices} />
+           <SeatForm onChange={this.props.onChangeSeat} 
+                     value={this.props.seat} 
+                     row={this.props.section[0].rows.filter(this.rows)} 
+                     tickets={this.props.tickets} prices={this.props.prices} />
            </div>;
   }
 });
@@ -95,6 +114,6 @@ var SeatForm = React.createClass({
         rows.push(<option key={i} value={i}>{i} {this.props.prices[priceType]} р.</option>);
       }
     }
-    return <div><label>Место</label><select name="ticket[seat]" id="ticket_seat" onChange={this.props.onChangeSeat} value={this.props.value}>{rows}</select></div>;
+    return <div><label>Место</label><select name="ticket[seat]" id="ticket_seat" onChange={this.props.onChangeSeat} value={this.props.seat}>{rows}</select></div>;
   }
 });

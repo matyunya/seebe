@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(version: 20160126170222) do
     t.datetime "updated_at",                          null: false
     t.string   "name"
     t.integer  "role"
-    t.integer  "inn"
+    t.string  "inn"
     t.string   "address"
     t.integer  "cashbox_id"
   end
