@@ -16,18 +16,28 @@ class TicketsController < AdminController
     @ticket.cashbox_id = current_user.cashbox_id
     if @ticket.save
       print(@ticket)
-      #redirect_to tickets_path, notice: 'Билет продан.'
     else
-      redirect_to tickets_path, alert: 'Ошибка при сохранении.'
+      redirect_to tickets_path, alert: 'Ошибка при сохранении'
     end
   end
 
   def destroy
     @ticket = Ticket.find(params[:id])
     if @ticket.destroy
-      redirect_to tickets_path, notice: 'Билет удален.'
-    end
+      redirect_to tickets_path, notice: 'Билет удален'
+    else
       redirect_to tickets_path, alert: 'Билет не был удален'
+    end
+  end
+
+  def return
+    @ticket = Ticket.find(params[:id])
+    return_amount = @ticket.cashback
+    if return_amount
+      redirect_to tickets_path, notice: "Оформлен возврат на сумму #{return_amount} р."
+    else
+      redirect_to tickets_path, alert: 'Возврат не был оформлен'
+    end
   end
 
   def sections_as_json
@@ -52,7 +62,6 @@ class TicketsController < AdminController
   private
 
   def print(ticket)
-
     Prawn::Document.generate("#{Rails.root}/public/hello.pdf", 
       {:page_size => [424, 1200], :page_layout => :landscape}) do
       font("#{Rails.root}/app/assets/fonts/OpenSansCondensedLight.ttf")
@@ -82,6 +91,6 @@ class TicketsController < AdminController
 
   def ticket_params
     params.require(:ticket).permit(
-      :section_id, :row, :seat, :hall_id, :concert_id)
+      :section_id, :row, :seat, :hall_id, :concert_id, :discount_reason, :discount_amount)
   end
 end

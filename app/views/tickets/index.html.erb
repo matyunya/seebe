@@ -10,6 +10,12 @@
             date: ticket.concert.date,
             price: ticket.price
         }) %> <small><%= User.find(ticket.user_id).name %></small>
+        <% unless ticket.return == true %>
+        <%= button_to  'Оформить возврат', 
+            {:action => 'return', :id => ticket.id },
+            method: :post, :class => 'button left small alert', data: {confirm: "Вы уверены?"} %>
+        <% end %>
+        <%= "Сумма возврата: #{ticket.return_amount}" if ticket.return == true %>
         <hr>
     </div>
 <% end %>

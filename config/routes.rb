@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   resources :tickets
   post 'concert/set_moderated', to: 'concerts#set_moderated'
   post 'cashbox/transfer', to: 'cashboxes#transfer'
+  post 'ticket/return', to: 'tickets#return'
 end

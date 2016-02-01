@@ -22,12 +22,18 @@
         <% end %>
 
         <% if current_user.admin? && concert.status != Concert::MODERATED %>
-            <%= button_to "Отмодерирован", {
-              :action => 'set_moderated', :id => concert.id }, {:method => :post, :class => 'button left small'} %>
+            <%= button_to "Отмодерирован",
+            {:action => 'set_moderated', :id => concert.id },
+            {:method => :post, :class => 'button left small'} %>
         <% end %>
 
         <% if current_user.promoter? || current_user %>
-            <%= button_to 'Удалить концерт', concert_path(concert.id), method: :delete, :class => 'button left small alert', data: {confirm: "Вы уверены?"} %>
+            <%= button_to 'Удалить концерт', 
+                concert_path(concert.id), 
+                method: :delete, 
+                :class => 'button left small alert', 
+                data: {confirm: "Вы уверены?"}
+             %>
         <% end %>
     </div>
     <hr>

@@ -5,22 +5,36 @@
 	 </div>
 </div>
 
-<%= form_for :ticket, url: tickets_path do |f| %>
-<%= hidden_field(:ticket, :concert_id, :value => @concert.id) %>
-<div class="row">
-    <div class="large-12 columns">
-      <%= react_component('TicketForm', {
-          sections: sections_as_json,
-          tickets: tickets_as_json,
-          prices: prices_as_json
-      }) %>
+  <%= form_for :ticket, url: tickets_path do |f| %>
+  <%= hidden_field(:ticket, :concert_id, :value => @concert.id) %>
+  <div class="row">
+      <div class="large-12 columns">
+        <%= react_component('TicketForm', {
+            sections: sections_as_json,
+            tickets: tickets_as_json,
+            prices: prices_as_json
+        }) %>
 
-    </div>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <%= f.label "Скидка" %>
+      <%= f.text_field :discount_amount, :placeholder => "100 %" %>
+     </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <%= f.label "Причина скидки" %>
+      <%= f.text_field :discount_reason, :placeholder => "Пригласительный" %>
+     </div>
+  </div>
+
+  <div class="large-12 columns">
+      <%= f.submit "Продать", :class => 'button', data: {confirm: "Вы уверены?"}  %>
+  </div>
 </div>
 
-    <div class="large-12 columns">
-        <%= f.submit "Продать", :class => 'button' %>
-    </div>
-</div>
-
-<% end %>
+  <% end %>
