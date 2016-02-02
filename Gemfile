@@ -10,8 +10,6 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 group :development, :test do
   gem 'byebug'
-end
-group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end
@@ -24,11 +22,11 @@ gem 'paperclip'
 gem 'active_hash'
 gem 'rails-html-sanitizer'
 gem 'react-rails', '~> 1.5.0'
+gem 'aws-sdk'
 gem 'rails_12factor', group: :production
 gem 'puma'
 gem 'simple_form'
 gem 'prawn'
-gem 'aws-sdk'
 
 group :development do
   gem 'better_errors'
