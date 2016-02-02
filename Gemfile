@@ -23,7 +23,7 @@ gem 'paperclip'
 gem 'active_hash'
 gem 'rails-html-sanitizer'
 gem 'react-rails', '~> 1.5.0'
-gem 'aws-sdk'
+gem 'aws-sdk', '< 2.0'
 gem 'rails_12factor', group: :production
 gem 'puma'
 gem 'simple_form'
