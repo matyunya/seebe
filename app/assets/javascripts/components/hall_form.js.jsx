@@ -7,6 +7,7 @@ var HallForm = React.createClass({
       value: 1
     }
   },
+
   change: function(event) {
     this.setState({value: event.target.value});
   },
