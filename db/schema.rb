@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 20160201203600) do
     t.boolean  "transfer",        default: false
     t.integer  "cashbox_id"
     t.boolean  "return"
-    t.integer  "return_amount"
+    t.integer  "return_amount", default: 0
     t.float    "discount_amount"
     t.string   "discount_reason"
   end

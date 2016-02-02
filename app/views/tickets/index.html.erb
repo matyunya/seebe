@@ -10,12 +10,14 @@
             date: ticket.concert.date,
             price: ticket.price
         }) %> <small><%= User.find(ticket.user_id).name %></small>
+        <%= "Скидка #{ticket.discount_amount*100.round} %. Причина: #{ticket.discount_reason}" unless ticket.discount_amount == nil %>
         <% unless ticket.return == true %>
         <%= button_to  'Оформить возврат', 
             {:action => 'return', :id => ticket.id },
-            method: :post, :class => 'button left small alert', data: {confirm: "Вы уверены?"} %>
+            method: :post, :class => 'button left tiny alert', data: {confirm: "Вы уверены?"} %>
+        <% else %>
+            <%= "Сумма возврата: #{ticket.return_amount} руб." %>
         <% end %>
-        <%= "Сумма возврата: #{ticket.return_amount}" if ticket.return == true %>
         <hr>
     </div>
 <% end %>
