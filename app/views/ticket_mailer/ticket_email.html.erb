@@ -9,8 +9,7 @@
             :controller => "tickets", 
             :action => "show", 
             :id => @ticket.url_hash, 
-            :host =>'seebee.herokuapp.com' 
-                unless @ticket.url_hash == nil %></p>
+            :host => 'seebee.herokuapp.com' unless @ticket.url_hash == nil %></p>
     <h1>Ряд: <%= @ticket.row %></h1>
     <h1>Место: <%= @ticket.seat %></h1>
   </body>
