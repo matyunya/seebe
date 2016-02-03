@@ -1,0 +1,13 @@
+
+
+<%# "#{Rails.root}/app/assets/images/age/#{ticket.concert.age}.png"
+        image age, :at => [900,-50], :scale => 1.3 %>
+<%= "артист: #{@ticket.concert.band}" %><br>
+<%= "площадка: #{@ticket.concert.hall.name}" %><br>
+<%= "дата: #{@ticket.concert.date}" %><br>
+<%= "место: #{@ticket.section.name} #{@ticket.row} ряд #{@ticket.seat} место" %><br>
+<%= "цена: #{@ticket.price}" %><br>
+<%= "кассир: #{@ticket.user.name}" %><br>
+<%= "орг: #{@ticket.concert.user.name}" %><br>
+<%= "инн: #{@ticket.concert.user.inn}" %><br>
+<%= "адрес: #{@ticket.concert.user.address}" %><br>

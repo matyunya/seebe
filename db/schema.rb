@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160201203600) do
+ActiveRecord::Schema.define(version: 20160203040406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,9 +78,10 @@ ActiveRecord::Schema.define(version: 20160201203600) do
     t.boolean  "transfer",        default: false
     t.integer  "cashbox_id"
     t.boolean  "return"
-    t.integer  "return_amount", default: 0
+    t.integer  "return_amount",   default: 0
     t.float    "discount_amount"
     t.string   "discount_reason"
+    t.string   "url_hash"
   end
 
   create_table "users", force: :cascade do |t|

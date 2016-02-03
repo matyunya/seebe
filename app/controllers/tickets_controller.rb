@@ -30,6 +30,10 @@ class TicketsController < AdminController
     end
   end
 
+  def show
+    @ticket = Ticket.find_by(:url_hash => params[:id])
+  end
+
   def return
     @ticket = Ticket.find(params[:id])
     return_amount = @ticket.cashback
