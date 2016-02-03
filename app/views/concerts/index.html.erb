@@ -10,12 +10,20 @@
     <% next if current_user.seller? && concert.status != Concert::MODERATED %>
 	<div class="large-2 columns">
 	   <%= image_tag concert.poster.url, width: '100' %>
+       <% if concert.status == Concert::MODERATED %>
+            <span class="success label">Отмодерирован</span>
+        <% else %>
+            <span class="warning label">Немодерирован</span>
+        <% end %>
+        <br>
 	</div>
 
 	<div class="large-10 columns">
         <h3><%= concert.band %> <b><%= concert.date %> <small><%= User.find(concert.user_id).email %></small></h3>
         <h4><%= Hall.find(concert.hall_id).name %></h4>
-        <p><i>Цены: <%= concert.prices.join(', ') %></i></p>
+        <p><i>Цены: <%= concert.prices.join(', ') %></i>
+        </p>
+       
 
         <% if current_user.seller? && concert.status == Concert::MODERATED %>
             <%= link_to 'Продать билет', new_ticket_path(:concert => concert.id), {:class => 'button left small'} %>
