@@ -26,6 +26,8 @@ class Ticket < ActiveRecord::Base
       return_amount_rate = 0.7
     elsif concert_date < 1.weeks.from_now && concert_date > 3.days.from_now
       return_amount_rate = 0.5
+    elsif self.created_at < 2.hours.ago
+      return_amount_rate = 1
     else return_amount_rate = 0
     end
 
