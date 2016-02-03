@@ -6,6 +6,7 @@ class Ticket < ActiveRecord::Base
   belongs_to :cashbox
   validates :section_id, :row, :seat, presence: true
   validates :concert_id, uniqueness: { scope: [:row, :seat] }, presence: true
+  default_scope {order('created_at DESC')}
 
   before_save(on: :create) do
     price_type = Row.find_by(section_id: self.section_id, number: self.row).prices[self.seat]
@@ -21,14 +22,14 @@ class Ticket < ActiveRecord::Base
     self.return = true
     concert_date = self.concert.date
     puts "concert date: #{concert_date}"
-    if concert_date > 2.weeks.from_now
-      return_amount_rate = 0.8
+    if self.created_at > 2.hours.ago
+      return_amount_rate = 1
     elsif concert_date < 2.weeks.from_now && concert_date > 1.week.from_now
       return_amount_rate = 0.7
     elsif concert_date < 1.weeks.from_now && concert_date > 3.days.from_now
       return_amount_rate = 0.5
-    elsif self.created_at < 2.hours.ago
-      return_amount_rate = 1
+    elsif concert_date > 2.weeks.from_now
+      return_amount_rate = 0.8
     else return_amount_rate = 0
     end
 
