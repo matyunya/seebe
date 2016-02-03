@@ -2,22 +2,30 @@
 <h3>Билеты</h3>
 
 <% @tickets.each do |ticket| %>
-    <div class="large-12 columns" style=<%= ticket.transfer ? "color:green" : "color:red" %>>
-        <%= react_component('Ticket', {
-            band: ticket.concert.band,
-            seat: ticket.seat,
-            row: ticket.row,
-            date: ticket.concert.date,
-            price: ticket.price
-        }) %> <small><%= User.find(ticket.user_id).name %></small>
-        <%= "Скидка #{ticket.discount_amount*100.round} %. Причина: #{ticket.discount_reason}" unless ticket.discount_amount == nil %>
-        <% unless ticket.return == true %>
-        <%= button_to  'Оформить возврат', 
-            {:action => 'return', :id => ticket.id },
-            method: :post, :class => 'button left tiny alert', data: {confirm: "Вы уверены?"} %>
-        <% else %>
-            <%= "Сумма возврата: #{ticket.return_amount} руб." %>
-        <% end %>
+    <div class="large-12 columns" >
+        <span style=<%= ticket.transfer ? "color:green" : "color:red" %>>
+            <small>
+                <%= ticket.created_at %> <%= User.find(ticket.user_id).name %>
+            </small>
+        </span>
+        <span>
+            <%= react_component('Ticket', {
+                band: ticket.concert.band,
+                seat: ticket.seat,
+                row: ticket.row,
+                date: ticket.concert.date,
+                price: ticket.price
+            }) %>
+            <%= "Скидка #{ticket.discount_amount*100.round} %. Причина: #{ticket.discount_reason}" unless ticket.discount_amount == nil %><br>
+            <% unless ticket.return == true %>
+            <br>
+            <%= button_to  'Оформить возврат', 
+                {:action => 'return', :id => ticket.id },
+                method: :post, :class => 'button left tiny alert padded', data: {confirm: "Вы уверены?"} %>
+            <% else %>
+                <%= "Сумма возврата: #{ticket.return_amount} руб." %>
+            <% end %>
+        </span>
         <hr>
     </div>
 <% end %>
