@@ -16,7 +16,7 @@
                 date: ticket.concert.date,
                 price: ticket.price
             }) %>
-            <%= "Скидка #{ticket.discount_amount*100.round} %. Причина: #{ticket.discount_reason}" unless ticket.discount_amount == nil %><br>
+            <%= "Скидка #{(ticket.discount_amount*100).round} %. Причина: #{ticket.discount_reason}" unless ticket.discount_amount == nil %><br>
             <% unless ticket.return == true %>
             <%= link_to 'Билет', ticket_path(ticket.url_hash) unless ticket.url_hash == nil %><br>
             <br>

@@ -7,13 +7,14 @@ class Ticket < ActiveRecord::Base
   validates :section_id, :row, :seat, presence: true
   validates :concert_id, uniqueness: { scope: [:row, :seat] }, presence: true
   default_scope {order('created_at DESC')}
+  before_save :prepare, :if => :new_record?
 
-  before_save(on: :create) do
+  def prepare
     price_type = Row.find_by(section_id: self.section_id, number: self.row).prices[self.seat]
     self.price = Concert.find(self.concert_id).prices[price_type]
     self.url_hash = Digest::SHA1.hexdigest("#{self.created_at.to_s}#{self.id}#{self.user_id}")
     unless self.discount_amount == nil
-      self.discount_amount *= 0.1
+      self.discount_amount *= 0.01
       self.price -= (self.price*self.discount_amount)
     end
   end
