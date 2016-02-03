@@ -28,6 +28,7 @@ gem 'rails_12factor', group: :production
 gem 'puma'
 gem 'simple_form'
 gem 'prawn'
+gem 'figaro'
 
 group :development do
   gem 'better_errors'

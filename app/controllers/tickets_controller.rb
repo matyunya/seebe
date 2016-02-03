@@ -14,8 +14,9 @@ class TicketsController < AdminController
     @ticket = Ticket.create(ticket_params)
     @ticket.user_id = current_user.id
     @ticket.cashbox_id = current_user.cashbox_id
+    TicketMailer.ticket_email(@ticket).deliver_now unless @ticket.email == nil
     if @ticket.save
-      print(@ticket)
+      redirect_to ticket_url(@ticket.url_hash), notice: "Билет продан за #{@ticket.price} руб."
     else
       redirect_to tickets_path, alert: 'Ошибка при сохранении'
     end
@@ -95,6 +96,6 @@ class TicketsController < AdminController
 
   def ticket_params
     params.require(:ticket).permit(
-      :section_id, :row, :seat, :hall_id, :concert_id, :discount_reason, :discount_amount)
+      :section_id, :row, :seat, :hall_id, :concert_id, :discount_reason, :discount_amount, :email)
   end
 end
