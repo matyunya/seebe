@@ -95,8 +95,7 @@ Rails.application.configure do
 
   config.paperclip_defaults = {
     :storage => :s3,
-    :s3_host_name => 'eu-central-1.amazonaws.com',
-    :url => 'http://seebe.s3.amazonaws.com/',
+    :s3_host_name => 's3.eu-central-1.amazonaws.com',
     :path => '/:class/:attachment/:id_partition/:style/:filename',
     :s3_credentials => {
       :bucket => ENV['S3_BUCKET_NAME'],
