@@ -14,8 +14,8 @@ class TicketsController < AdminController
     @ticket = Ticket.create(ticket_params)
     @ticket.user_id = current_user.id
     @ticket.cashbox_id = current_user.cashbox_id
-    TicketMailer.ticket_email(@ticket).deliver_now unless @ticket.email == nil
     if @ticket.save
+      TicketMailer.ticket_email(@ticket).deliver_now unless @ticket.email == ''
       redirect_to ticket_url(@ticket.url_hash), notice: "Билет продан за #{@ticket.price} руб."
     else
       redirect_to tickets_path, alert: 'Ошибка при сохранении'
@@ -53,7 +53,7 @@ class TicketsController < AdminController
   end
 
   def tickets_as_json
-    Ticket.where(concert_id: @concert.id).pluck(:row, :seat).to_json
+    Ticket.where(concert_id: @concert.id).pluck(:row, :seat)
   end
 
   def prices_as_json

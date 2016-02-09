@@ -1,100 +1,246 @@
 var TicketForm = React.createClass({
   propTypes: {
     sections: React.PropTypes.array,
-    tickets: React.PropTypes.string,
+    tickets: React.PropTypes.array,
     prices: React.PropTypes.array
   },
+  render: function() {
+    var style = {
+      textAlign: 'center',
+      lineHeight: '18px',
+      minWidth: '300px',
+      maxWidth: '400px'
+    }
+    return (
+      <div className="test" style={style}>
+        {this.props.sections.map(function(section) {
+            return <Section section={section} key={section.id} tickets={this.props.tickets} prices={this.props.prices} />;
+          }.bind(this))}
+      </div>
+      )
+  }
+});
+
+var Section = React.createClass({
+  propTypes: {
+    section: React.PropTypes.object,
+    tickets: React.PropTypes.array,
+    prices: React.PropTypes.array
+  },
+
   getInitialState: function() {
      return {
-         value: this.props.sections[0].id,
-         row: this.props.sections[0].rows[0].number,
-         seat: this.props.sections[0].rows[0].seats[0]
-
+        section: this.props.section
      }
   },
-  change: function(event) {
-    this.setState({value: event.target.value});
-  },
-  sections: function(section) {
-    return section.id == this.state.value;
-  },
+
   render: function() {
-    return (
-      <div>
-        <label>Секция</label>
-        <select name="ticket[section_id]" id="ticket_section_id" onChange={this.change} value={this.state.value}>
-          {this.props.sections.map(function(section) {
-            return <option value={section.id} key={section.id}>{section.name}</option>;
-          })}
-        </select>
-        <RowForm section={this.props.sections.filter(this.sections)} tickets={this.props.tickets} prices={this.props.prices} />
-      </div>
-          )
+    var nameStyle = {
+      padding: '2px',
+      backgroundColor: '#C0C0C0',
+      color: 'white',
+      fontSize: '12px',
+      marginBottom: '3px'
+    };
+
+    var sectionStyle = {
+      marginBottom: '15px'
+    };
+
+    return <span>
+            <div style={sectionStyle}>
+            {this.props.section.rows.map(function(row) {
+              return <Row row={row} key={row.id} tickets={this.props.tickets} prices={this.props.prices} sectionName={this.props.section.name} sectionId={this.props.section.id} />;
+            }.bind(this))}
+            </div>
+           </span>;
   }
 });
 
-var RowForm = React.createClass({
+var Row = React.createClass({
   propTypes: {
-    section: React.PropTypes.array,
-    tickets: React.PropTypes.string,
-    prices: React.PropTypes.array
+    row: React.PropTypes.object,
+    tickets: React.PropTypes.array,
+    prices: React.PropTypes.array,
+    sectionName: React.PropTypes.string
   },
+
+  colors: ['#FCDD93','#f28500','#955251'],
+
+  taken: function(row, seat) {
+    seat = this.props.tickets.filter(function(id, ticket) {
+      return (ticket[0] == row && ticket[1] == seat);
+    }.bind(row, seat));
+
+    return seat.length > 0;
+  },
+
+  getColor: function(row, seat) {
+    var price = this.props.row.prices[seat-1];
+    return this.colors[price];
+  },
+
+  getPrice: function(seat) {
+    return this.props.prices[this.props.row.prices[seat-1]];
+  },
+
+  seats: function() {
+    var seats = [];
+    for (var i=1; i < this.props.row.seats + 1; i++) {
+      var seat = i;
+      var color = this.taken(this.props.row.number, i) ? '#E0E0E0' : this.getColor(this.props.row.number, i);
+        seats.push(
+          <Seat 
+            key={i}
+            seat={i}
+            row={this.props.row.number}
+            color={color}
+            taken={this.taken(this.props.row.number, i)}
+            seat={i}
+            price={this.getPrice(i)}
+            sectionName={this.props.sectionName}
+            sectionId={this.props.sectionId}
+          />
+          );
+      }
+
+    return seats;
+  },
+
+  render: function() {
+    return <div><small>{this.props.row.number}</small> 
+      {this.seats()}
+       <small>{this.props.row.number}</small>
+    </div>;
+  }
+});
+
+var Seat = React.createClass({
+  propTypes: {
+    tickets: React.PropTypes.array,
+    color: React.PropTypes.string,
+    taken: React.PropTypes.bool,
+    sectionName: React.PropTypes.string,
+  },
+
+  showTooltip: function(e) {
+      this.setState({
+        style: {
+          cursor: "pointer",
+          color: "white",
+          backgroundColor: this.props.color,
+          padding: '2px',
+          fontSize: this.state.style.fontSize
+        },
+        tooltip: true,
+        x: e.clientX,
+        y: e.clientY
+      });
+  },
+
+  hideTooltip: function(e) {
+    this.setState({
+      style: {
+        color: this.props.color,
+        cursor: "pointer",
+        padding: '2px',
+        fontSize: this.state.style.fontSize
+      },
+      tooltip: false
+    });
+  },
+
   getInitialState: function() {
     return {
-      section: [],
-      value: this.props.section[0].rows[0].number
+      style: {
+        color: this.props.color,
+        cursor: "pointer",
+        padding: '2px'
+      },
+      tooltip: false,
+      selected: false
     }
   },
-  getDefaultProps: function() {
-    return {
-      section: []
-    }
+
+  select: function() {
+    this.setState({
+      style: {
+        color: this.props.color,
+        cursor: "pointer",
+        padding: '2px',
+        fontSize: '22px',
+        fontWeight: '700'
+      },
+      tooltip: false,
+      selected: true
+    });
   },
-  change: function(event) {
-    this.setState({value: event.target.value});
-  },
-  rows: function(row) {
-    return row.number == this.state.value;
-  },
+
   render: function() {
-    var rows = [];
-    var length = 0;
-    if (this.props.section[0].rows != null) {
-      length = this.props.section[0].rows.length
-    }
-    for (var i=1; i <= length; ++i) {
-      rows.push(<option key={i} value={i}>{i}</option>)
-    }
-    return <div>
-            <label>Ряд</label>
-            <select name="ticket[row]" id="ticket_row" onChange={this.change}>
-            {rows}
-           </select>
-           <SeatForm onChange={this.onChangeSeat} value={this.state.seat} row={this.props.section[0].rows.filter(this.rows)} tickets={this.props.tickets} prices={this.props.prices} />
-           </div>;
+    return <span style={this.state.style} onMouseOver={this.showTooltip} onMouseOut={this.hideTooltip} onClick={this.select}>
+      <Tooltip
+       sectionName={this.props.sectionName}
+       sectionId={this.props.sectionId}
+       seat={this.props.seat}
+       row={this.props.row}
+       show={this.state.tooltip}
+       price={this.props.price}
+       taken={this.props.taken}
+       x={this.state.x}
+       y={this.state.y}
+      />
+      <Inputs selected={this.state.selected} row={this.props.row} seat={this.props.seat} sectionId={this.props.sectionId} />
+      {this.props.seat}
+      </span>;
   }
 });
 
-var SeatForm = React.createClass({
-  propTypes: {
-    row: React.PropTypes.array,
-    tickets: React.PropTypes.string,
-    prices: React.PropTypes.array
+var Inputs = React.createClass({
+  getInitialState: function() {
+     return {
+        selected: false
+     }
   },
-  render: function() {
-    var rows = [];
-    var length = 0;
 
-    if (this.props.row[0] != null) {
-      length = this.props.row[0].seats
-    }
-    for (var i=1; i <= length; ++i) {
-      var seat = '[' + this.props.row[0].number + ',' + i + ']';
-      if (this.props.tickets.indexOf(seat) < 0) {
-        var priceType = this.props.row[0].prices[i-1];
-        rows.push(<option key={i} value={i}>{i} {this.props.prices[priceType]} р.</option>);
-      }
-    }
-    return <div><label>Место</label><select name="ticket[seat]" id="ticket_seat" onChange={this.props.onChangeSeat} value={this.props.value}>{rows}</select></div>;
+  getInputs: function() {
+    return (
+        <span>
+        <input type="hidden" value={this.props.row} name="ticket[row]" />
+        <input type="hidden" value={this.props.seat} name="ticket[seat]" />
+        <input type="hidden" value={this.props.sectionId} name="ticket[section_id]" />
+        </span>
+        )
+  },
+
+  render: function() {
+    return <span>
+            {this.props.selected ? this.getInputs() : null}
+           </span>
+  }
+});
+
+var Tooltip = React.createClass({
+  propTypes: {
+    show: React.PropTypes.bool
+  },
+
+  text: function() {
+    var text = this.props.price + ' руб.';
+
+    return this.props.taken ? 'Билет продан' : text;
+  },
+
+  render: function() {
+    var style = {
+      padding: this.props.show ? '10px' : '0px',
+      fontSize: '16px',
+      position: 'fixed',
+      left: this.props.x + 20,
+      top: this.props.y - 20,
+      color: 'white',
+      backgroundColor: 'rgba(0,0,0,0.4)'
+    };
+
+    return <span style={style}>{this.props.show ? this.text() : null}</span>;
   }
 });
