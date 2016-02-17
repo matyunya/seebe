@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.0.0'
+ruby '2.2.4'
 gem 'rails', '4.2.5'
 gem 'pg'
 gem 'sass-rails', '~> 5.0.0'
@@ -16,7 +16,6 @@ group :development, :test do
 end
 gem 'devise'
 gem 'devise-i18n'
-
 gem 'high_voltage'
 gem 'rails-i18n'
 gem 'paperclip'
@@ -27,7 +26,6 @@ gem 'aws-sdk', '< 2.0'
 gem 'rails_12factor', group: :production
 gem 'puma'
 gem 'simple_form'
-gem 'prawn'
 gem 'figaro'
 
 group :development do

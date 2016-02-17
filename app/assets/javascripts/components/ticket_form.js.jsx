@@ -163,6 +163,23 @@ var Seat = React.createClass({
   },
 
   select: function() {
+    if (this.props.taken) {
+      return false;
+    }
+
+    if (this.state.selected) {
+      this.setState({
+        style: {
+          color: this.props.color,
+          cursor: "pointer",
+          padding: '2px'
+        },
+        tooltip: false,
+        selected: false
+      });
+      return;
+    }
+
     this.setState({
       style: {
         color: this.props.color,
@@ -188,7 +205,7 @@ var Seat = React.createClass({
        taken={this.props.taken}
        x={this.state.x}
        y={this.state.y}
-      />
+     />
       <Inputs selected={this.state.selected} row={this.props.row} seat={this.props.seat} sectionId={this.props.sectionId} />
       {this.props.seat}
       </span>;

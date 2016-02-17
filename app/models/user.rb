@@ -1,6 +1,6 @@
 # devise user
 class User < ActiveRecord::Base
-  enum role: [:user, :seller, :admin, :promoter]
+  enum role: [:user, :seller, :admin, :promoter, :cashier]
   after_initialize :set_default_role, :if => :new_record?
   has_many :tickets
   belongs_to :cashbox
@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
 
   def admin?
     self.role == 'admin'
+  end
+
+  def cashier?
+    self.role == 'cashier'
   end
 
   # Include default devise modules. Others available are:

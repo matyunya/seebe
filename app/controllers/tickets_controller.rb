@@ -22,6 +22,18 @@ class TicketsController < AdminController
     end
   end
 
+  def check_in
+    @ticket = Ticket.find(params[:id])
+    redirect_to tickets_path, alert: 'По этому билету уже прошли' if @ticket.check_in == true
+
+    @ticket.check_in = true
+    if @ticket.save
+      redirect_to tickets_path, notice: 'Человек зашел на концерт'
+    else
+      redirect_to tickets_path, alert: 'Билет не был удален'
+    end
+  end
+
   def destroy
     @ticket = Ticket.find(params[:id])
     if @ticket.destroy
