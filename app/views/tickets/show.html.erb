@@ -5,37 +5,87 @@
 
     @page {
       margin-left: 3cm;
-      size: landscape;
+      size: 2cm 5cm;
     }
 
     @media print {
+        .large-1 {
+        width: 8.33333%;
+      }
+
+      .large-2 {
+        width: 16.66667%;
+      }
+
+      .large-3 {
+        width: 25%;
+      }
+
+      .large-4 {
+        width: 33.33333%;
+      }
+
+      .large-5 {
+        width: 41.66667%;
+      }
+
+      .large-6 {
+        width: 50%;
+      }
+
+      .large-7 {
+        width: 58.33333%;
+      }
+
+      .large-8 {
+        width: 66.66667%;
+      }
+
+      .large-9 {
+        width: 75%;
+      }
+
+      .large-10 {
+        width: 83.33333%;
+      }
+
+      .large-11 {
+        width: 91.66667%;
+      }
+
+      .large-12 {
+        width: 100%;
+      }
+        
         header nav, footer {
             display: none;
         }
 
         .print {
-            font-size: 30px;
+            font-size: 14px;
         }
 
         .age {
             display: block;
-            position: absolute;
+            position: fixed;
             top:20px;
             right:20px;
         }
     }
+
+    
 </style>
 
 <div class="print">
 <div class="row">
-    <div class="large-6 columns">
+    <div class="large-6 small-4 columns">
         <small>артист:</small> <%= "#{@ticket.concert.band}" %><br>
         <small>площадка:</small> <%= "#{@ticket.concert.hall.name}" %><br>
         <small>дата:</small> <%= "#{@ticket.concert.date}" %><br>
         <small>цена:</small> <%= "#{@ticket.price}" %> руб.<br>
     </div>
-    <div class="large-6 columns">
-        <h2> <%= "#{@ticket.section.name} #{@ticket.row} ряд #{@ticket.seat} место" %></h2><br>
+    <div class="large-6 small-8 columns">
+            <%= "#{@ticket.section.name} #{@ticket.row} ряд #{@ticket.seat} место" %><br>
             <small>кассир: <%= "#{@ticket.user.name}" %><br>
             организатор: <%= "#{@ticket.concert.user.name}" %><br>
             инн: <%= "#{@ticket.concert.user.inn}" %><br>
