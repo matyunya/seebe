@@ -1,13 +1,52 @@
+<style>
+    .age {
+        display: none;
+    }
+
+    @page {
+      margin-left: 3cm;
+      size: landscape;
+    }
+
+    @media print {
+        header nav, footer {
+            display: none;
+        }
+
+        .print {
+            font-size: 30px;
+        }
+
+        .age {
+            display: block;
+            position: absolute;
+            top:20px;
+            right:20px;
+        }
+    }
+</style>
+
+<div class="print">
+<div class="row">
+    <div class="large-6 columns">
+        <small>артист:</small> <%= "#{@ticket.concert.band}" %><br>
+        <small>площадка:</small> <%= "#{@ticket.concert.hall.name}" %><br>
+        <small>дата:</small> <%= "#{@ticket.concert.date}" %><br>
+        <small>цена:</small> <%= "#{@ticket.price}" %> руб.<br>
+    </div>
+    <div class="large-6 columns">
+        <h2> <%= "#{@ticket.section.name} #{@ticket.row} ряд #{@ticket.seat} место" %></h2><br>
+            <small>кассир: <%= "#{@ticket.user.name}" %><br>
+            организатор: <%= "#{@ticket.concert.user.name}" %><br>
+            инн: <%= "#{@ticket.concert.user.inn}" %><br>
+            адрес: <%= "#{@ticket.concert.user.address}" %><br></small>
+    </div>
+</div>
 
 
-<%# "#{Rails.root}/app/assets/images/age/#{ticket.concert.age}.png"
-        image age, :at => [900,-50], :scale => 1.3 %>
-<%= "артист: #{@ticket.concert.band}" %><br>
-<%= "площадка: #{@ticket.concert.hall.name}" %><br>
-<%= "дата: #{@ticket.concert.date}" %><br>
-<%= "место: #{@ticket.section.name} #{@ticket.row} ряд #{@ticket.seat} место" %><br>
-<%= "цена: #{@ticket.price}" %><br>
-<%= "кассир: #{@ticket.user.name}" %><br>
-<%= "орг: #{@ticket.concert.user.name}" %><br>
-<%= "инн: #{@ticket.concert.user.inn}" %><br>
-<%= "адрес: #{@ticket.concert.user.address}" %><br>
+
+</div>
+
+<div class="age">
+<%= image_tag "https://s3.eu-central-1.amazonaws.com/seebe/age/#{@ticket.concert.age}.png" %>
+</div>
