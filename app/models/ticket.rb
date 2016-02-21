@@ -10,7 +10,7 @@ class Ticket < ActiveRecord::Base
   before_save :prepare, :if => :new_record?
 
   def prepare
-    price_type = Row.find_by(section_id: self.section_id, number: self.row).prices[self.seat]
+    price_type = Row.find_by(section_id: self.section_id, number: self.row).prices[self.seat-1]
     self.price = Concert.find(self.concert_id).prices[price_type]
     self.url_hash = Digest::SHA1.hexdigest("#{self.created_at.to_s}#{self.id}#{self.user_id}")
     unless self.discount_amount == nil

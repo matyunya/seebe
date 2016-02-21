@@ -18,6 +18,7 @@ class Concert < ActiveRecord::Base
             :poster, :hall_id, :user_id, :age,
             presence: true
   has_many :tickets
+  has_many :row_prices
   belongs_to :user
   belongs_to :hall
 
