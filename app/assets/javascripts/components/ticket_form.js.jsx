@@ -2,7 +2,8 @@ var TicketForm = React.createClass({
   propTypes: {
     sections: React.PropTypes.array,
     tickets: React.PropTypes.array,
-    prices: React.PropTypes.array
+    prices: React.PropTypes.array,
+    row_prices: React.PropTypes.array
   },
   render: function() {
     var style = {
@@ -14,7 +15,7 @@ var TicketForm = React.createClass({
     return (
       <div className="test" style={style}>
         {this.props.sections.map(function(section) {
-            return <Section section={section} key={section.id} tickets={this.props.tickets} prices={this.props.prices} />;
+            return <Section section={section} key={section.id} tickets={this.props.tickets} prices={this.props.prices} row_prices={this.props.row_prices} />;
           }.bind(this))}
       </div>
       )
@@ -25,13 +26,24 @@ var Section = React.createClass({
   propTypes: {
     section: React.PropTypes.object,
     tickets: React.PropTypes.array,
-    prices: React.PropTypes.array
+    prices: React.PropTypes.array,
+    row_prices: React.PropTypes.array
   },
 
   getInitialState: function() {
      return {
         section: this.props.section
      }
+  },
+
+  getRowPrices: function(row_id) {
+    var prices = this.props.row_prices.filter(function(row_prices) {
+      return row_prices.row_id === row_id;
+    }.bind(row_id));
+
+    if (prices.length > 0) {
+      return prices[0].prices;
+    }
   },
 
   render: function() {
@@ -50,7 +62,14 @@ var Section = React.createClass({
     return <span>
             <div style={sectionStyle}>
             {this.props.section.rows.map(function(row) {
-              return <Row row={row} key={row.id} tickets={this.props.tickets} prices={this.props.prices} sectionName={this.props.section.name} sectionId={this.props.section.id} />;
+              return <Row row={row}
+                          key={row.id}
+                          tickets={this.props.tickets}
+                          prices={this.props.prices}
+                          sectionName={this.props.section.name}
+                          sectionId={this.props.section.id}
+                          row_prices={this.getRowPrices(row.id)}
+                      />;
             }.bind(this))}
             </div>
            </span>;
@@ -62,10 +81,25 @@ var Row = React.createClass({
     row: React.PropTypes.object,
     tickets: React.PropTypes.array,
     prices: React.PropTypes.array,
-    sectionName: React.PropTypes.string
+    sectionName: React.PropTypes.string,
+    row_prices: React.PropTypes.array
   },
 
-  colors: ['#FCDD93','#f28500','#955251'],
+  colors: [
+    '#BF0B0B',
+    '#DE3A3A',
+    '#FF763B',
+    '#D14D00',
+    '#852034',
+    '#D0B709',
+    '#E3CF7F',
+    '#647349',
+    '#7A8650',
+    '#345E1A',
+    '#11C9C0',
+    '#B7BCB1',
+    '#121610'
+],
 
   taken: function(row, seat) {
     seat = this.props.tickets.filter(function(id, ticket) {
@@ -76,12 +110,17 @@ var Row = React.createClass({
   },
 
   getColor: function(row, seat) {
-    var price = this.props.row.prices[seat-1];
+    var price = this.props.row_prices ? this.props.row_prices[seat-1] : this.props.row.prices[seat-1];
     return this.colors[price];
   },
 
   getPrice: function(seat) {
-    return this.props.prices[this.props.row.prices[seat-1]];
+    if (this.props.row_prices) {
+      return this.props.prices[this.props.row_prices[seat-1]];
+    } else {
+      return this.props.prices[this.props.row.prices[seat-1]];  
+    }
+    
   },
 
   seats: function() {
