@@ -24,7 +24,7 @@ class Concert < ActiveRecord::Base
   after_create :update_row_prices
 
   def update_row_prices
-    RowPrices.where('concert_id is null').update_all(concert_id: self.concert_id);
+    RowPrice.where('concert_id is null').update_all(concert_id: self.id);
   end
 
   validates_inclusion_of :status, :in => STATUSES.keys,

@@ -78,7 +78,7 @@ var Seat = React.createClass({
     }
   },
 
-  select: function() {
+  select: function(unselect = false) {
     if (this.props.taken) {
       return false;
     }
@@ -87,7 +87,7 @@ var Seat = React.createClass({
       this.props.setSelected(this.props.rowId, this.props.seat);  
     }
 
-    if (this.state.selected) {
+    if (this.state.selected || unselect === true) {
       this.setState({
         style: {
           color: this.getColor(),
@@ -115,8 +115,7 @@ var Seat = React.createClass({
 
   componentDidUpdate: function(props) {
     if (this.props.price !== props.price) {
-      this.select();
-      this.setState({selected: false, style: {fontSize: '16px', cursor: 'pointer', padding: '2px', color: this.getColor()}});
+      this.select(true);
     }
   },
 
