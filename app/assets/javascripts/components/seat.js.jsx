@@ -35,7 +35,7 @@ var Seat = React.createClass({
     if (this.props.price < 100) {
       return 'black';
     }
-    console.log(Math.round(this.props.price/100));
+
     return this.colors[Math.round(this.props.price/100)];
   },
 
