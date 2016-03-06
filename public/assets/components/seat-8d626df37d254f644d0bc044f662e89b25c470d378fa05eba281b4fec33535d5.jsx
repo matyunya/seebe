@@ -6,12 +6,45 @@ var Seat = React.createClass({
     sectionName: React.PropTypes.string,
   },
 
+    //TODO: отсортировать цвета по цене
+  colors: [
+    '#771155',
+    '#AA4488',
+    '#CC99BB',
+    '#114477',
+    '#4477AA',
+    '#77AADD',
+    '#117777',
+    '#44AAAA',
+    '#77CCCC',
+    '#117744',
+    '#44AA77',
+    '#88CCAA',
+    '#777711',
+    '#AAAA44',
+    '#DDDD77',
+    '#774411',
+    '#AA7744',
+    '#DDAA77',
+    '#771122',
+    '#AA4455',
+    '#DD7788'
+  ],
+
+  getColor: function() {
+    if (this.props.price < 100) {
+      return 'black';
+    }
+    console.log(Math.round(this.props.price/100));
+    return this.colors[Math.round(this.props.price/100)];
+  },
+
   showTooltip: function(e) {
       this.setState({
         style: {
-          cursor: "pointer",
-          color: "white",
-          backgroundColor: this.props.color,
+          cursor: 'pointer',
+          color: '#D0D0D0',
+          backgroundColor: this.getColor(),
           padding: '2px',
           fontSize: this.state.style.fontSize
         },
@@ -24,8 +57,8 @@ var Seat = React.createClass({
   hideTooltip: function(e) {
     this.setState({
       style: {
-        color: this.props.color,
-        cursor: "pointer",
+        color: this.getColor(),
+        cursor: 'pointer',
         padding: '2px',
         fontSize: this.state.style.fontSize
       },
@@ -36,8 +69,8 @@ var Seat = React.createClass({
   getInitialState: function() {
     return {
       style: {
-        color: this.props.color,
-        cursor: "pointer",
+        color: this.getColor(),
+        cursor: 'pointer',
         padding: '2px'
       },
       tooltip: false,
@@ -45,16 +78,20 @@ var Seat = React.createClass({
     }
   },
 
-  select: function() {
+  select: function(unselect = false) {
     if (this.props.taken) {
       return false;
     }
 
-    if (this.state.selected) {
+    if (this.props.setSelected) {
+      this.props.setSelected(this.props.rowId, this.props.seat);  
+    }
+
+    if (this.state.selected || unselect === true) {
       this.setState({
         style: {
-          color: this.props.color,
-          cursor: "pointer",
+          color: this.getColor(),
+          cursor: 'pointer',
           padding: '2px'
         },
         tooltip: false,
@@ -65,8 +102,8 @@ var Seat = React.createClass({
 
     this.setState({
       style: {
-        color: this.props.color,
-        cursor: "pointer",
+        color: this.getColor(),
+        cursor: 'pointer',
         padding: '2px',
         fontSize: '22px',
         fontWeight: '700'
@@ -74,6 +111,12 @@ var Seat = React.createClass({
       tooltip: false,
       selected: true
     });
+  },
+
+  componentDidUpdate: function(props) {
+    if (this.props.price !== props.price) {
+      this.select(true);
+    }
   },
 
   render: function() {

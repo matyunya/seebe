@@ -1,4 +1,4 @@
-var PriceSection = React.createClass({
+var Section = React.createClass({
   propTypes: {
     section: React.PropTypes.object,
     tickets: React.PropTypes.array,
@@ -17,8 +17,9 @@ var PriceSection = React.createClass({
       return row_prices.row_id === row_id;
     }.bind(row_id));
 
+
     if (prices.length > 0) {
-      return prices[0].prices;
+      return prices;
     }
   },
 
@@ -38,14 +39,14 @@ var PriceSection = React.createClass({
     return <span>
             <div style={sectionStyle}>
             {this.props.section.rows.map(function(row) {
-              return <PriceRow row={row}
+              return <Row row={row}
                           key={row.id}
                           tickets={this.props.tickets}
                           prices={this.props.prices}
                           sectionName={this.props.section.name}
                           sectionId={this.props.section.id}
                           row_prices={this.getRowPrices(row.id)}
-                          passSeatRow={this.props.passSeatRow}
+                          setSelected={this.props.setSelected}
                       />;
             }.bind(this))}
             </div>
