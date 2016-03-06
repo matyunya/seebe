@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   post 'concert/set_moderated', to: 'concerts#set_moderated'
   post 'cashbox/transfer', to: 'cashboxes#transfer'
   post 'ticket/return', to: 'tickets#return'
+  post 'ticket/custom', to: 'row_prices#create'
 end

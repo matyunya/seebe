@@ -57,6 +57,7 @@ class TicketsController < AdminController
     end
   end
 
+  
   def sections_as_json
     @json = ''
     @concert.hall.sections.each_with_index do |hall, index|
@@ -73,7 +74,7 @@ class TicketsController < AdminController
   end
 
   def row_prices_as_json
-    RowPrice.where(concert_id: @concert.id)
+    RowPrice.select(:row_id, :seat, :price).where(concert_id: @concert.id)
   end
 
   helper_method :sections_as_json

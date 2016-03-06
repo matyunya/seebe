@@ -9,11 +9,6 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
-group :development, :test do
-  gem 'byebug'
-  gem 'web-console', '~> 2.0'
-  gem 'spring'
-end
 gem 'devise'
 gem 'devise-i18n'
 gem 'high_voltage'
@@ -23,12 +18,15 @@ gem 'active_hash'
 gem 'rails-html-sanitizer'
 gem 'react-rails', '~> 1.5.0'
 gem 'aws-sdk', '< 2.0'
-gem 'rails_12factor', group: :production
 gem 'puma'
 gem 'simple_form'
 gem 'figaro'
+gem 'rails_12factor', group: :production
 
-group :development do
+group :development, :test do
+  gem 'byebug'
+  gem 'web-console', '~> 2.0'
+  gem 'spring'
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_20]
   gem 'quiet_assets'

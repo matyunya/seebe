@@ -34,7 +34,7 @@
             {:method => :post, :class => 'button left small'} %>
         <% end %>
 
-        <% if current_user.promoter? || current_user.admin? %>
+        <% if (current_user.promoter? && concert.user_id == current_user.id) || current_user.admin? %>
             <%= button_to 'Удалить концерт', 
                 concert_path(concert.id), 
                 method: :delete, 

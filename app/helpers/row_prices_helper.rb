@@ -1,0 +1,2 @@
+module RowPricesHelper
+end

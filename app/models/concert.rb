@@ -21,6 +21,11 @@ class Concert < ActiveRecord::Base
   has_many :row_prices
   belongs_to :user
   belongs_to :hall
+  after_create :update_row_prices
+
+  def update_row_prices
+    RowPrices.where('concert_id is null').update_all(concert_id: self.concert_id);
+  end
 
   validates_inclusion_of :status, :in => STATUSES.keys,
     :message => "{{value}} must be in #{STATUSES.values.join ','}"
