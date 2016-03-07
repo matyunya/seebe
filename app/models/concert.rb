@@ -19,12 +19,13 @@ class Concert < ActiveRecord::Base
             presence: true
   has_many :tickets
   has_many :row_prices
+  has_one :hex
   belongs_to :user
   belongs_to :hall
   after_create :update_row_prices
 
   def update_row_prices
-    RowPrice.where('concert_id is null').update_all(concert_id: self.id);
+    RowPrice.where(hex: self.hex).update_all(concert_id: self.id);
   end
 
   validates_inclusion_of :status, :in => STATUSES.keys,

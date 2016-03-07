@@ -15,6 +15,12 @@ var Row = React.createClass({
     return seat.length > 0;
   },
 
+  getInitialState: function() {
+    return {
+      selected: false
+    }
+  },
+
   getPrice: function(seat) {
     if (!this.props.row_prices) {
       return this.props.prices[this.props.row.prices[seat-1]]; 
@@ -27,10 +33,8 @@ var Row = React.createClass({
     return (prices.length > 0) ? prices[0].price : this.props.prices[this.props.row.prices[seat-1]];
   },
 
-  ComponentDidUpdate: function(prevProps) {
-    if (prevProps.prices !== this.props.prices) {
-      forceUpdate();
-    }
+  selectEntireRow: function() {
+    this.setState({selected: !this.state.selected});
   },
 
   seats: function() {
@@ -44,6 +48,7 @@ var Row = React.createClass({
             seat={i}
             rowId={this.props.row.id}
             row={this.props.row.number}
+            selected={this.state.selected}
             taken={this.taken(this.props.row.number, i)}
             seat={i}
             price={this.getPrice(i)}
@@ -58,9 +63,9 @@ var Row = React.createClass({
   },
 
   render: function() {
-    return <div><small>{this.props.row.number}</small> 
+    return <div><small onClick={this.selectEntireRow} style={{cursor:"pointer"}}>{this.props.row.number}</small> 
       {this.seats()}
-       <small>{this.props.row.number}</small>
+       <small onClick={this.selectEntireRow} style={{cursor:"pointer"}}>{this.props.row.number}</small> 
     </div>;
   }
 });

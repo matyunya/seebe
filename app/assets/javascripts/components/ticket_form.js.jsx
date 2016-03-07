@@ -5,6 +5,11 @@ var TicketForm = React.createClass({
     prices: React.PropTypes.array,
     row_prices: React.PropTypes.array
   },
+
+  selected: function() {
+    return typeof this.props.setSelected === 'function' ? this.props.setSelected : {};
+  },
+
   render: function() {
     var style = {
       textAlign: 'center',
@@ -15,7 +20,7 @@ var TicketForm = React.createClass({
     return (
       <div className="test" style={style}>
         {this.props.sections.map(function(section) {
-            return <Section section={section} key={section.id} tickets={this.props.tickets} prices={this.props.prices} row_prices={this.props.row_prices} setSelected={this.props.setSelected} />;
+            return <Section section={section} key={section.id} tickets={this.props.tickets} prices={this.props.prices} row_prices={this.props.row_prices} setSelected={this.selected()} />;
           }.bind(this))}
       </div>
       )

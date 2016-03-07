@@ -9,6 +9,7 @@ var Inputs = React.createClass({
     return (
         <span>
         <input type="hidden" value={this.props.row} name="ticket[row]" />
+        <input type="hidden" value={this.props.rowId} name="ticket[row_id]" />
         <input type="hidden" value={this.props.seat} name="ticket[seat]" />
         <input type="hidden" value={this.props.sectionId} name="ticket[section_id]" />
         </span>

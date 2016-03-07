@@ -32,6 +32,10 @@ var Seat = React.createClass({
   ],
 
   getColor: function() {
+    if (this.props.taken) {
+      return '#D0D0D0';
+    }
+
     if (this.props.price < 100) {
       return 'black';
     }
@@ -83,9 +87,7 @@ var Seat = React.createClass({
       return false;
     }
 
-    if (this.props.setSelected) {
-      this.props.setSelected(this.props.rowId, this.props.seat);  
-    }
+    this.props.setSelected(this.props.rowId, this.props.seat);
 
     if (this.state.selected) {
       this.setState({
@@ -114,6 +116,10 @@ var Seat = React.createClass({
   },
 
   componentDidUpdate: function(props) {
+    if (this.props.selected !== props.selected) {
+      this.select();
+    }
+
     if (this.props.price !== props.price) {
       this.select();
       this.setState({selected: false, style: {fontSize: '16px', cursor: 'pointer', padding: '2px', color: this.getColor()}});
@@ -133,7 +139,7 @@ var Seat = React.createClass({
        x={this.state.x}
        y={this.state.y}
      />
-      <Inputs selected={this.state.selected} row={this.props.row} seat={this.props.seat} sectionId={this.props.sectionId} />
+      <Inputs selected={this.state.selected} row={this.props.row} seat={this.props.seat} rowId={this.props.rowId} sectionId={this.props.sectionId} />
       {this.props.seat}
       </span>;
   }

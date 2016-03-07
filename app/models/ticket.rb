@@ -10,10 +10,9 @@ class Ticket < ActiveRecord::Base
   before_save :prepare, :if => :new_record?
 
   def prepare
-    price_type = Row.find_by(section_id: self.section_id, number: self.row).prices[self.seat-1]
-    self.price = Concert.find(self.concert_id).prices[price_type]
     self.url_hash = Digest::SHA1.hexdigest("#{self.created_at.to_s}#{self.id}#{self.user_id}")
 
+    set_price
     set_discount
   end
 
@@ -42,5 +41,13 @@ class Ticket < ActiveRecord::Base
     self.return_amount = return_amount_rate * self.price
     self.return = true
     return self.return_amount if self.save
+  end
+
+  def set_price
+    price_type = Row.find_by(section_id: self.section_id, number: self.row).prices[self.seat-1]
+    self.price = Concert.find(self.concert_id).prices[price_type]
+
+    row_price = RowPrice.find(row_id: self.row_id, seat: self.seat, hex: self.concert.hex);
+    self.price = row_price.price unless row_price is nil
   end
 end

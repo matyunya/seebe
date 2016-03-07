@@ -1,7 +1,8 @@
 var HallForm = React.createClass({
   propTypes: {
     halls: React.PropTypes.array,
-    concert_id: React.PropTypes.number
+    concert_id: React.PropTypes.number,
+    hex: React.PropTypes.string
   },
 
   getInitialState: function() {
@@ -38,7 +39,6 @@ var HallForm = React.createClass({
     }
 
     selected[row][seat] = !selected[row][seat];
-
     this.setState({selected: selected})
   },
 
@@ -62,7 +62,7 @@ var HallForm = React.createClass({
         $.post({
           url: '/ticket/custom',
           dataType: 'json',
-          data: {price: {seat: s, row_id: r, price: this.state.priceToSet}},
+          data: {price: {seat: s, row_id: r, price: this.state.priceToSet, hex: this.props.hex}},
           cache: false,
           success: function(data) {
             this.setState({row_prices: this.filterRowPrices(s, r)});

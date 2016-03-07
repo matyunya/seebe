@@ -15,6 +15,6 @@ class RowPricesController < AdminController
 
   def row_price_params
     params.require(:price).permit(
-      :concert_id, :row_id, :seat, :price)
+      :concert_id, :row_id, :seat, :price, :hex)
   end
 end
