@@ -10,10 +10,15 @@ var TicketPricesForm = React.createClass({
     for (var i=1; i <= this.state.value; ++i) {
       rows.push(<PriceInput key={i} value={i} id={i} updatePrices={this.props.updatePrices} />)
     }
+
+    if (this.props.dancefloor) {
+      rows.push(<DancefloorPriceInput key={i} value={i} id={i} updatePrices={this.props.updatePrices} dancefloor={this.props.dancefloor} />);
+    }
+
     return (
       <div>
         <h5>Цены по умолчанию</h5>
-        <div className="row">
+        <div className='row'>
           {rows}
         </div>
       </div>
@@ -22,14 +27,33 @@ var TicketPricesForm = React.createClass({
 });
 
 var PriceInput = React.createClass({
-  rowName: function() {
-    return 'concert[prices][]'
-  },
-
   render: function() {
-    return <div className="large-12 columns">
+    return <div className='large-12 columns'>
             <label>{this.props.value}-й тип цены</label>
-            <input type="number" name={this.rowName()} id="concert_price" data={this.props.id} onBlur={this.props.updatePrices} />
+            <input type='number' name='concert[prices][]'
+            id='concert_price'
+            data={this.props.id}
+            onBlur={this.props.updatePrices}
+            />
           </div>
+  }
+});
+
+var DancefloorPriceInput = React.createClass({
+  render: function() {
+    return <div><div className='large-12 columns'>
+            <label>Цена на танцполе</label>
+            <input type='number' name='concert[dancefloor_price]'
+            id='concert_dancefloor_price'
+            data={this.props.id}
+            />
+          </div>
+          <div className='large-12 columns'>
+            <label>Количество билетов на танцпол</label>
+            <input type='number' name='concert[dancefloor_limit]'
+            id='concert_dancefloor_limit'
+            data={this.props.id}
+            />
+          </div></div>
   }
 });

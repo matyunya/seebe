@@ -20,7 +20,7 @@
 	<div class="large-10 columns">
         <h3><%= concert.band %> <b><%= concert.date %> <small><%= User.find(concert.user_id).email %></small></h3>
         <h4><%= Hall.find(concert.hall_id).name %></h4>
-        <p><i>Цены: <%= concert.prices.join(', ') %></i>
+        <% unless concert.prices.empty? %><p><i>Цены: <%= concert.prices.join(', ') %></i><% end %>
         </p>
        
 

@@ -32,12 +32,8 @@ var Section = React.createClass({
       marginBottom: '3px'
     };
 
-    var sectionStyle = {
-      marginBottom: '15px'
-    };
-
     return <span>
-            <div style={sectionStyle}>
+            <div style={{marginBottom: '15px'}}>
             {this.props.section.rows.map(function(row) {
               return <Row row={row}
                           key={row.id}

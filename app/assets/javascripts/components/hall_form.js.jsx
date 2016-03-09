@@ -22,6 +22,16 @@ var HallForm = React.createClass({
     return this.props.halls.filter(function(h) {return h.id == this.state.hall_id}.bind(this))[0].sections;
   },
 
+  hasDancefloor: function() {
+    var sections = this.getSections();
+
+    var dancefloor = sections.filter(function(s) {
+      return s.dancefloor;
+    });
+
+    return dancefloor.length > 0;
+  },
+
   halls: function(hall) {
     return hall.id == this.state.hall_id;
   },
@@ -90,10 +100,10 @@ var HallForm = React.createClass({
           )}
         </select>
         <TicketForm sections={this.getSections()} tickets={[]} prices={this.state.prices} row_prices={this.state.row_prices} setSelected={this.setSelected} /> 
-        <label>Укажите цену</label>
+        <label>Укажите цену для выбранных мест</label>
         <input type="number" name="set_price" id="set_price" value={this.state.priceToSet} onChange={this.changePriceToSet} />
-        <button type="button" onClick={this.setPrices}>Применить</button>
-        <TicketPricesForm id={this.state.hall_id} hall={this.props.halls.filter(this.halls)} key={this.state.hall_id} updatePrices={this.updatePrices} />
+        <button type="button" onClick={this.setPrices} className="tiny button">Применить</button>
+        <TicketPricesForm id={this.state.hall_id} hall={this.props.halls.filter(this.halls)} key={this.state.hall_id} updatePrices={this.updatePrices} dancefloor={this.hasDancefloor()} />
       </div>
     );
   }

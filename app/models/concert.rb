@@ -11,7 +11,7 @@ class Concert < ActiveRecord::Base
   }
 
   after_initialize :default_values
-  default_scope { order('date DESC') }
+  default_scope { order('updated_at DESC') }
   has_attached_file :poster, default_url: '/posters/missing.png'
   validates_attachment_content_type :poster, content_type: /\Aimage\/.*\Z/
   validates :band, :description, :date,
@@ -19,13 +19,12 @@ class Concert < ActiveRecord::Base
             presence: true
   has_many :tickets
   has_many :row_prices
-  has_one :hex
   belongs_to :user
   belongs_to :hall
   after_create :update_row_prices
 
   def update_row_prices
-    RowPrice.where(hex: self.hex).update_all(concert_id: self.id);
+    RowPrice.where(hex: self.hex).update_all(concert_id: self.id)
   end
 
   validates_inclusion_of :status, :in => STATUSES.keys,

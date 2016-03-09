@@ -20,7 +20,13 @@ var TicketForm = React.createClass({
     return (
       <div className="test" style={style}>
         {this.props.sections.map(function(section) {
-            return <Section section={section} key={section.id} tickets={this.props.tickets} prices={this.props.prices} row_prices={this.props.row_prices} setSelected={this.selected()} />;
+            return <Section section={section}
+                      key={section.id}
+                      tickets={this.props.tickets}
+                      prices={this.props.prices}
+                      row_prices={this.props.row_prices}
+                      setSelected={this.selected()}
+                    />;
           }.bind(this))}
       </div>
       )

@@ -87,7 +87,9 @@ var Seat = React.createClass({
       return false;
     }
 
-    this.props.setSelected(this.props.rowId, this.props.seat);
+    if (typeof this.props.setSelected === 'function') {
+      this.props.setSelected(this.props.rowId, this.props.seat);  
+    }
 
     if (this.state.selected) {
       this.setState({
