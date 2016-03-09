@@ -4,15 +4,16 @@ class Ticket < ActiveRecord::Base
   belongs_to :user
   belongs_to :section
   belongs_to :cashbox
-  validates :section_id, :row, :seat, presence: true
-  validates :concert_id, uniqueness: { scope: [:row, :seat] }, presence: true
+  validates :section_id, :row, :seat, presence: true, unless: :dancefloor
+  validates :concert_id, uniqueness: { scope: [:row, :seat] }, presence: true, unless: :dancefloor
   default_scope {order('created_at DESC')}
   before_save :prepare, :if => :new_record?
 
   def prepare
     self.url_hash = Digest::SHA1.hexdigest("#{self.created_at.to_s}#{self.id}#{self.user_id}")
 
-    set_price
+    self.price = self.dancefloor ? self.concert.dancefloor_price : set_price;
+    self.section_id = self.dancefloor ? Section.find_by(hall_id: self.concert.hall.id, dancefloor: true).id : self.section_id;
     set_discount
   end
 
@@ -45,9 +46,11 @@ class Ticket < ActiveRecord::Base
 
   def set_price
     price_type = Row.find_by(section_id: self.section_id, number: self.row).prices[self.seat-1]
-    self.price = Concert.find(self.concert_id).prices[price_type]
+    self.price = self.concert.prices[price_type]
 
-    row_price = RowPrice.find(row_id: self.row_id, seat: self.seat, hex: self.concert.hex);
-    self.price = row_price.price unless row_price is nil
+    row_price = RowPrice.where(row_id: self.row_id, seat: self.seat, hex: self.concert.hex).first;
+    self.price = row_price.price unless row_price.nil?
+
+    self.price = Concert.find(self.concert_id).dancefloor_price if self.dancefloor
   end
 end

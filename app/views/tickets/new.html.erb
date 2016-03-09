@@ -29,6 +29,15 @@
       </div>
   </div>
 
+  <% unless @concert.dancefloor_price.nil? %>
+  <div class="row">
+    <div class="large-12 columns">
+      <%= f.label "Танцпол" %>
+      <%= f.check_box :dancefloor %>
+     </div>
+  </div>
+  <% end %>
+
   <div class="row">
     <div class="large-12 columns">
       <%= f.label "Скидка" %>

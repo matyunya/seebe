@@ -86,7 +86,7 @@ class TicketsController < AdminController
 
   def ticket_params
     params.require(:ticket).permit(
-      :section_id, :row, :seat, :hall_id, :concert_id,
+      :section_id, :row, :seat, :hall_id, :concert_id, :dancefloor,
       :discount_reason, :discount_amount, :email, :row_id)
   end
 end
