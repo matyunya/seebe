@@ -10,8 +10,7 @@ class Ticket < ActiveRecord::Base
   before_save :prepare, :if => :new_record?
 
   def prepare
-    self.url_hash = Digest::SHA1.hexdigest("#{self.created_at.to_s}#{self.id}#{self.user_id}")
-
+    self.url_hash = SecureRandom.uuid
     self.price = self.dancefloor ? self.concert.dancefloor_price : set_price;
     self.section_id = self.dancefloor ? Section.find_by(hall_id: self.concert.hall.id, dancefloor: true).id : self.section_id;
     set_discount
@@ -22,6 +21,14 @@ class Ticket < ActiveRecord::Base
       self.discount_amount *= 0.01
       self.price -= (self.price*self.discount_amount)
     end
+  end
+
+  def qrcode
+    path = Rails.application.routes.url_helpers.check_path(self.url_hash)
+    qrcode = RQRCode::QRCode.new("https://seebee.herokuapp.com#{path}")
+    qrcode.as_svg(offset: 0, color: '000', 
+                    shape_rendering: 'crispEdges', 
+                    module_size: 3)
   end
 
   def cashback

@@ -8,6 +8,11 @@
                 <%= ticket.created_at %> <%= User.find(ticket.user_id).name %>
             </small>
         </span>
+        <span style=<%= ticket.check_in ? "color:green" : "color:red" %>>
+            <small>
+                <%= "Не" unless ticket.check_in %> прошел
+            </small>
+        </span>
         <span>
             <%= react_component('Ticket', {
                 band: ticket.concert.band,

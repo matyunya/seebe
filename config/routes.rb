@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   post 'cashbox/transfer', to: 'cashboxes#transfer'
   post 'ticket/return', to: 'tickets#return'
   post 'ticket/custom', to: 'row_prices#create'
+  get 'tickets/check/:hash', to: 'tickets#check_in', as: :check
 end

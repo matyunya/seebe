@@ -22,6 +22,7 @@ gem 'puma'
 gem 'simple_form'
 gem 'figaro'
 gem 'rails_12factor', group: :production
+gem 'rqrcode', '~> 0.10.1'
 
 group :development, :test do
   gem 'byebug'

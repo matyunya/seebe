@@ -12,5 +12,6 @@
             :host => 'seebee.herokuapp.com' unless @ticket.url_hash == nil %></p>
     <% unless @ticket.dancefloor %><h1>Ряд: <%= @ticket.row %></h1>
     <h1>Место: <%= @ticket.seat %></h1><% end %>
+    <div><%= raw @ticket.qrcode %></div>
   </body>
 </html>

@@ -23,14 +23,19 @@ class TicketsController < AdminController
   end
 
   def check_in
-    @ticket = Ticket.find(params[:id])
-    redirect_to tickets_path, alert: 'По этому билету уже прошли' if @ticket.check_in == true
+    logger.info params
+    @ticket = Ticket.find_by(:url_hash => params[:hash])
+
+    if @ticket.check_in == true
+      redirect_to tickets_path, alert: 'По этому билету уже прошли'
+      return
+    end
 
     @ticket.check_in = true
     if @ticket.save
       redirect_to tickets_path, notice: 'Человек зашел на концерт'
     else
-      redirect_to tickets_path, alert: 'Билет не был удален'
+      redirect_to tickets_path, alert: 'Ошибка при сохранении'
     end
   end
 

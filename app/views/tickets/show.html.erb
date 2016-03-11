@@ -1,30 +1,30 @@
 <div class="print">
-<div class="row">
-    <div class="large-6 small-4 columns">
-        <small>артист:</small> <%= "#{@ticket.concert.band}" %><br>
-        <small>площадка:</small> <%= "#{@ticket.concert.hall.name}" %><br>
-        <small>дата:</small> <%= "#{@ticket.concert.date}" %><br>
-        <small>цена:</small> <%= "#{@ticket.price}" %> руб.<br>
-    </div>
-    <div class="large-6 small-8 columns">
-            <%= "#{@ticket.section.name}"%> <% unless @ticket.dancefloor %><%="#{@ticket.row} ряд #{@ticket.seat} место" %><% end %><br> 
-            <small>кассир: <%= "#{@ticket.user.name}" %><br>
-            организатор: <%= "#{@ticket.concert.user.name}" %><br>
-            инн: <%= "#{@ticket.concert.user.inn}" %><br>
-            адрес: <%= "#{@ticket.concert.user.address}" %><br></small>
-    </div>
-</div>
-
-
-
+  <div class="row">
+      <div class="large-3 small-4 columns">
+          <small>артист:</small> <%= "#{@ticket.concert.band}" %><br>
+          <small>площадка:</small> <%= "#{@ticket.concert.hall.name}" %><br>
+          <small>дата:</small> <%= "#{@ticket.concert.date}" %><br>
+          <small>цена:</small> <%= "#{@ticket.price}" %> руб.<br>
+      </div>
+      <div class="large-3 small-8 columns">
+              <%= "#{@ticket.section.name}"%> <% unless @ticket.dancefloor %><%="#{@ticket.row} ряд #{@ticket.seat} место" %><% end %><br> 
+              <small>кассир: <%= "#{@ticket.user.name}" %><br>
+              организатор: <%= "#{@ticket.concert.user.name}" %><br>
+              инн: <%= "#{@ticket.concert.user.inn}" %><br>
+              адрес: <%= "#{@ticket.concert.user.address}" %><br></small>
+      </div>
+      <div class="large-3 small-4 columns qr">
+              <%= raw @ticket.qrcode %>
+      </div>
+  </div>
 </div>
 
 <div class="age">
-<%= image_tag "https://s3.eu-central-1.amazonaws.com/seebe/age/#{@ticket.concert.age}.png" %>
+  <%= image_tag "https://s3.eu-central-1.amazonaws.com/seebe/age/#{@ticket.concert.age}.png" %>
 </div>
 
 <style>
-    .age {
+    .age, .qr {
         display: none;
     }
 
@@ -95,6 +95,13 @@
             position: fixed;
             top:20px;
             right:20px;
+        }
+
+        .qr {
+            display: block;
+            position: fixed;
+            top:20px;
+            right:100px;
         }
     }    
 </style>
