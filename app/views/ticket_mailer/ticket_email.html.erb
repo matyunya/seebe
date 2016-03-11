@@ -4,13 +4,13 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Ваш билет на концерт <%= @ticket.concert.date %> <%= @ticket.concert.time %></h1>
+    <h1>Ваш билет на концерт <%= @ticket.concert.date.strftime("%d.%m") %> <%= @ticket.concert.time.strftime("%H:%M") %></h1>
     <p>Ссылка на <%= link_to 'билет', 
-            :controller => "tickets", 
-            :action => "show", 
+            :controller => 'tickets', 
+            :action => 'show', 
             :id => @ticket.url_hash, 
             :host => 'seebee.herokuapp.com' unless @ticket.url_hash == nil %></p>
-    <h1>Ряд: <%= @ticket.row %></h1>
-    <h1>Место: <%= @ticket.seat %></h1>
+    <% unless @ticket.dancefloor %><h1>Ряд: <%= @ticket.row %></h1>
+    <h1>Место: <%= @ticket.seat %></h1><% end %>
   </body>
 </html>
