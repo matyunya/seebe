@@ -1,5 +1,6 @@
 # tickets
 class TicketsController < AdminController
+  before_action :authenticate_user!, :except => :show
   def index
     @tickets = Ticket.all if current_user.admin?
     @tickets = Ticket.where user_id: current_user.id if current_user.seller?
