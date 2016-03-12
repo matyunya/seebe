@@ -1,6 +1,6 @@
 <div class="print">
   <div class="row">
-      <div class="large-3 small-4 columns">
+      <div class="large-2 small-4 columns">
           <small>артист:</small> <%= "#{@ticket.concert.band}" %><br>
           <small>площадка:</small> <%= "#{@ticket.concert.hall.name}" %><br>
           <small>дата:</small> <%= "#{@ticket.concert.date}" %><br>
@@ -26,11 +26,6 @@
 <style>
     .age, .qr {
         display: none;
-    }
-
-    @page {
-      margin-left: 3cm;
-      size: 2cm 5cm;
     }
 
     @media print {
@@ -101,7 +96,7 @@
             display: block;
             position: fixed;
             top:20px;
-            right:100px;
+            right:250px;
         }
     }    
 </style>
