@@ -5,7 +5,7 @@
   <% if current_user.promoter? || current_user.admin? || current_user.seller? %>
     <li><%= link_to 'Концерты', concerts_path %></li>
   <% end %>
-  <% if current_user.seller? ||current_user.admin? %>
+  <% if current_user.seller? ||current_user.admin? || current_user.promoter? %>
     <li><%= link_to 'Билеты', tickets_path %></li>
   <% end %>
   <% if current_user.admin? %>

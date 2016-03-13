@@ -4,6 +4,11 @@ class TicketsController < AdminController
   def index
     @tickets = Ticket.all if current_user.admin?
     @tickets = Ticket.where user_id: current_user.id if current_user.seller?
+
+    if current_user.promoter?
+      concert_ids = Concert.where user_id: current_user.id
+      @tickets = Ticket.where concert_id: concert_ids
+    end
   end
 
   def new
@@ -25,12 +30,10 @@ class TicketsController < AdminController
 
   def check_in
     logger.info params
-    @ticket = Ticket.find_by(:url_hash => params[:hash])
+    @ticket = Ticket.find_by(:url_hash => params[:hash], :concert_id => Concert.where(:user_id => current_user.id))
+    return redirect_to tickets_path, alert: 'Билет не найден либо вы не промоутер' if @ticket.nil?
 
-    if @ticket.check_in == true
-      redirect_to tickets_path, alert: 'По этому билету уже прошли'
-      return
-    end
+    return redirect_to tickets_path, alert: 'По этому билету уже прошли' if @ticket.check_in == true
 
     @ticket.check_in = true
     if @ticket.save
