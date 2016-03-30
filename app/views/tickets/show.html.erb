@@ -7,21 +7,26 @@
     </div>
     <div class="large-6 columns main-info">
       <h2><%= @ticket.concert.band %></h2>
-      <p>билет № <%= @ticket.russian_id %> </span> за <%= @ticket.price %> р.</p> 
+
+      <p>билет № <%= @ticket.russian_id %> </span> за <%= @ticket.price %> р.</p>
+
       <h5><%= @ticket.concert.hall.name %> <%= @ticket.concert.date.strftime("%d.%m") %> <%= @ticket.concert.time.strftime("%H:%M") %></h5>
-      <h3><small>сектор:</small> <%= @ticket.section.name %> 
-           <% unless @ticket.dancefloor %> <small>ряд:</small> <%=@ticket.row%> <small>место:</small> <%=@ticket.seat%><% end %>
+
+      <h3>
+        <small>сектор:</small> <%= @ticket.section.name %> 
+       <% unless @ticket.dancefloor %> <small>ряд:</small> <%=@ticket.row%> <small>место:</small> <%=@ticket.seat%><% end %>
       </h3>
-                <div class="org">
-                  Организатор: <%= @ticket.concert.user.name %> адрес: <%= @ticket.concert.user.address %> инн: <%= @ticket.concert.user.inn %>
-                </div>
+
+      <div class="org">
+        Организатор: <%= @ticket.concert.user.name %> адрес: <%= @ticket.concert.user.address %> инн: <%= @ticket.concert.user.inn %>
+      </div>
     </div>
-    <div class="large-2 columns qr"><span class="image"><%= raw @ticket.qrcode %></span><%= image_tag "https://s3.eu-central-1.amazonaws.com/seebe/age/#{@ticket.concert.age}.png", size: 32 %></div>
+    <div class="large-2 columns qr"><%= raw @ticket.qrcode %><span class="image"><%= image_tag @ticket.age, size: 26 %></span></div>
     <div class="large-1 columns line-left"><span class="vertical-text"><h3>Контроль</h3></span></div>
 </div>
 
 <style>
-    .age, .vertical-text, .org {
+    .age, .vertical-text, .org, .image {
         display: none;
     }
 
@@ -37,7 +42,7 @@
     }
 
     @media print {
-      .age, .vertical-text, .org {
+      .age, .vertical-text, .org, .image {
         display: block;
       }
 
@@ -111,8 +116,9 @@
       }
 
       .image {
-
-        padding-top: 60px;
+        position: fixed;
+        left:20px;
+        top:20px;
       }
 
       h2 {

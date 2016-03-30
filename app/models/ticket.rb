@@ -36,6 +36,10 @@ class Ticket < ActiveRecord::Base
     "AA #{id}"
   end
 
+  def age
+    "https://s3.eu-central-1.amazonaws.com/seebe/age/#{self.concert.age}.png"
+  end
+
   def cashback
     self.return = true
     concert_date = self.concert.date
