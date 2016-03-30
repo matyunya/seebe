@@ -1,35 +1,47 @@
-<div class="print">
-  <div class="row">
-      <div class="large-2 small-4 columns">
-          <small>артист:</small> <%= "#{@ticket.concert.band}" %><br>
-          <small>площадка:</small> <%= "#{@ticket.concert.hall.name}" %><br>
-          <small>дата:</small> <%= "#{@ticket.concert.date}" %><br>
-          <small>цена:</small> <%= "#{@ticket.price}" %> руб.<br>
-      </div>
-      <div class="large-3 small-8 columns">
-              <%= "#{@ticket.section.name}"%> <% unless @ticket.dancefloor %><%="#{@ticket.row} ряд #{@ticket.seat} место" %><% end %><br> 
-              <small>кассир: <%= "#{@ticket.user.name}" %><br>
-              организатор: <%= "#{@ticket.concert.user.name}" %><br>
-              инн: <%= "#{@ticket.concert.user.inn}" %><br>
-              адрес: <%= "#{@ticket.concert.user.address}" %><br></small>
-      </div>
-      <div class="large-3 small-4 columns qr">
-              <%= raw @ticket.qrcode %>
-      </div>
-  </div>
-</div>
-
-<div class="age">
-  <%= image_tag "https://s3.eu-central-1.amazonaws.com/seebe/age/#{@ticket.concert.age}.png" %>
+    <div class="large-2 columns line-right">
+      <p><span class="vertical-text side-text">концерт: <%= @ticket.concert.band %><br>
+          сектор: <%= @ticket.section.name %> 
+          <% unless @ticket.dancefloor %><%="ряд: #{@ticket.row}  место: #{@ticket.seat}" %><% end %>
+          цена: <%= @ticket.price %> руб.<br>
+          серия АА номер 123125</span> 
+    </div>
+    <div class="large-6 columns main-info">
+      <h1>концерт <%= @ticket.concert.band %> <%= image_tag "https://s3.eu-central-1.amazonaws.com/seebe/age/#{@ticket.concert.age}.png", size: 32 %></h1>
+      <p>билет № <%= @ticket.russian_id %> </span> <small>цена:</small> <%= @ticket.price %> руб.</p> 
+      <h5><%= @ticket.concert.hall.name %> <%= @ticket.concert.date.strftime("%d.%m") %> <%= @ticket.concert.time.strftime("%H:%M") %></h5>
+      <h3><small>сектор:</small> <%= @ticket.section.name %> 
+           <% unless @ticket.dancefloor %> <small>ряд:</small> <%=@ticket.row%> <small>место:</small> <%=@ticket.seat%><% end %>
+      </h3>
+                <div class="org">
+                  Организатор: <%= @ticket.concert.user.name %> адрес: <%= @ticket.concert.user.address %> инн: <%= @ticket.concert.user.inn %>
+                </div>
+    </div>
+    <div class="large-2 columns qr"><%= raw @ticket.qrcode %></div>
+    <div class="large-1 columns line-left"><span class="vertical-text"><h3>Контроль</h3></span></div>
 </div>
 
 <style>
-    .age {
+    .age, .vertical-text, .org {
         display: none;
     }
 
+    @page  
+    { 
+        size: auto;
+        margin: 0mm 0mm 0mm 0mm;
+    }
+
+    body  
+    { 
+        margin: 0px;  
+    }
+
     @media print {
-        .large-1 {
+      main {
+        padding:0;
+      }
+
+      .large-1 {
         width: 8.33333%;
       }
 
@@ -50,6 +62,7 @@
       }
 
       .large-6 {
+        padding-left: 40px;
         width: 50%;
       }
 
@@ -77,26 +90,60 @@
         width: 100%;
       }
         
-        header nav, footer {
-            display: none;
-        }
+      header nav, footer {
+          display: none;
+      }
 
-        .print {
-            font-size: 14px;
-        }
+      .columns {
+        height: 250px;
+      }
 
-        .age {
-            display: block;
-            position: fixed;
-            top:20px;
-            right:20px;
-        }
+      .line-right {
+        border-right: 3px dotted #444;
+      }
 
-        .qr {
-            display: block;
-            position: fixed;
-            top:20px;
-            right:250px;
-        }
-    }    
+      .line-left {
+        border-left: 5px dotted #444;
+      }
+
+      .image {
+        top: 30px;
+      }
+
+      h1 {
+        padding-top: 12px;
+      }
+
+      .vertical-text {
+        transform: rotate(270deg);
+        transform-origin: left bottom 10;
+        margin-top: 100px;
+        margin-left:-40px;
+        float: left;
+      }
+
+      .side-text {
+        margin-top: 90px;
+        font-size: 12px;
+        width:200px;
+      }
+
+      .main-info {
+        font-size: 18px;
+      }
+
+      .org {
+        font-size: 7px;
+        overflow: hidden;
+      }
+
+      .qr {
+          display: block;
+          padding:8px;
+          padding-top: 70px;
+          right:110px;
+          position:fixed;
+      }
+    }
+}
 </style>

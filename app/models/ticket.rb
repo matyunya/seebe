@@ -28,7 +28,12 @@ class Ticket < ActiveRecord::Base
     qrcode = RQRCode::QRCode.new("https://seebee.herokuapp.com#{path}")
     qrcode.as_svg(offset: 0, color: '000', 
                     shape_rendering: 'crispEdges', 
-                    module_size: 3)
+                    module_size: 2)
+  end
+
+  def russian_id
+    id = self.id.to_s.rjust(6, '0')
+    "AA #{id}"
   end
 
   def cashback
