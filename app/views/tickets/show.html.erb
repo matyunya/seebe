@@ -3,7 +3,7 @@
           сектор: <%= @ticket.section.name %> 
           <% unless @ticket.dancefloor %><%="ряд: #{@ticket.row}  место: #{@ticket.seat}" %><% end %>
           цена: <%= @ticket.price %> руб.<br>
-          серия АА номер 123125</span> 
+          билет № <%= @ticket.russian_id %></span> 
     </div>
     <div class="large-6 columns main-info">
       <h1>концерт <%= @ticket.concert.band %> <%= image_tag "https://s3.eu-central-1.amazonaws.com/seebe/age/#{@ticket.concert.age}.png", size: 32 %></h1>
