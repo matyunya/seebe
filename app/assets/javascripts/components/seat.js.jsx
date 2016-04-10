@@ -3,6 +3,7 @@ var Seat = React.createClass({
     tickets: React.PropTypes.array,
     color: React.PropTypes.string,
     taken: React.PropTypes.bool,
+    disabled: React.PropTypes.bool,
     sectionName: React.PropTypes.string,
   },
 
@@ -32,7 +33,7 @@ var Seat = React.createClass({
   ],
 
   getColor: function() {
-    if (this.props.taken) {
+    if (this.props.taken || this.props.disabled) {
       return '#D0D0D0';
     }
 

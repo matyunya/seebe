@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :sections
   resources :halls
   root to: 'visitors#index'
-  devise_for :users, :controllers => {:registrations => "registrations"}
+  devise_for :users, :controllers => {:registrations => 'registrations'}
   resources :users
   resources :concerts
   resources :tickets

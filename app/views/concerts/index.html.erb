@@ -1,3 +1,14 @@
+<style>
+.concert_path:hover {
+  background-color: #eee;
+  color:red;
+}
+
+.columns {
+    padding: 5px;
+}
+</style>
+
 <div class="row">
 <h3>Концерты</h3>
 <% if current_user.promoter? %>
@@ -7,6 +18,7 @@
 <% end %>
 
 <% @concerts.each do |concert| %>
+<a href=<%= edit_concert_path(concert.id) %>>
     <% next if current_user.seller? && concert.status != Concert::MODERATED %>
 	<div class="large-2 columns">
 	   <%= image_tag concert.poster.url, width: '100' %>
@@ -17,7 +29,7 @@
         <% end %>
 	</div>
 
-	<div class="large-10 columns">
+	<div class="large-10 columns concert_path" >
         <h3><%= concert.band %> <b><%= concert.date %> <small><%= User.find(concert.user_id).email %></small></h3>
         <h4><%= Hall.find(concert.hall_id).name %></h4>
         <% unless concert.prices.empty? %><p><i>Цены: <%= concert.prices.join(', ') %></i><% end %>
@@ -43,5 +55,6 @@
              %>
         <% end %>
     </div>
+    </a>
     <hr>
 <% end %>

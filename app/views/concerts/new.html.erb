@@ -5,11 +5,9 @@
 }
 </style>
 
-<% hex = SecureRandom.hex %>
-
 <%= form_for :concert, url: concerts_path do |f| %>
 
-<%= f.hidden_field :hex, :value => hex  %>
+<%= f.hidden_field :hex, :value => @hex  %>
 
 <div class="row">
 	<div class="large-12 columns">
@@ -32,7 +30,7 @@
 		<%= react_component('HallForm', {
 			halls: halls_as_json,
 			prices: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
-			hex: hex
+			hex: @hex
         }) %>
 	</div>
 </div>

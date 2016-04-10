@@ -1,0 +1,63 @@
+<%= form_for(@concert) do |f| %>
+
+<div class="row">
+    <div class="large-12 columns">
+      <%= f.label "Артист" %>
+      <%= f.text_field :band %>
+     </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
+      <%= f.label "Описание" %>
+      <%= f.text_area :description %>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
+        <%= f.label "Площадка" %>
+        <%= react_component('HallForm', {
+            halls: halls_as_json,
+            prices: @concert.prices,
+            hex: @hex,
+            hall_id: @concert.hall_id
+        }) %>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
+      <%= f.label "Дата" %>
+        <%= date_field(:concert, :date) %>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
+      <%= f.label "Время" %>
+        <%= time_field(:concert, :time) %>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
+      <%= f.label "Возрастное ограничение" %>
+        <%= select("concert", "age", [0, 6, 12, 18, 21]) %>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
+      <%= f.label "Афиша" %>
+        <%= f.file_field :poster %>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
+    <%= f.submit "Сохранить", :class => 'button' %>
+    </div>
+</div>
+
+<% end %>
