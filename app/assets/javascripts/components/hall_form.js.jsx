@@ -4,7 +4,8 @@ var HallForm = React.createClass({
     concert_id: React.PropTypes.number,
     hex: React.PropTypes.string,
     hall_id: React.PropTypes.number,
-    prices: React.PropTypes.array
+    prices: React.PropTypes.array,
+    dancefloor_price: React.PropTypes.number,
   },
 
   getInitialState: function() {
@@ -14,7 +15,8 @@ var HallForm = React.createClass({
       hall_id: hall_id,
       row_prices: [],
       prices: this.props.prices,
-      selected: []
+      selected: [],
+      dancefloor_price: this.props.dancefloor_price
     }
   },
 
@@ -44,6 +46,10 @@ var HallForm = React.createClass({
     var prices = this.state.prices;
     prices[e.target.attributes.data.value - 1] = e.target.value;
     this.setState({prices: prices});
+  },
+
+  updateDancefloorPrice: function(e) {
+    this.setState({dancefloor_price: e.target.value});
   },
 
   setSelected: function(row, seat) {
@@ -107,11 +113,14 @@ var HallForm = React.createClass({
         <label>Укажите цену для выбранных мест</label>
         <input type="number" name="set_price" id="set_price" value={this.state.priceToSet} onChange={this.changePriceToSet} />
         <button type="button" onClick={this.setPrices} className="tiny button">Применить</button>
-        <TicketPricesForm id={this.state.hall_id}
+        <TicketPricesForm 
+          id={this.state.hall_id}
           hall={this.props.halls.filter(this.halls)}
           key={this.state.hall_id}
           updatePrices={this.updatePrices}
+          updateDancefloorPrice={this.updateDancefloorPrice}
           dancefloor={this.hasDancefloor()}
+          dancefloor_price={this.state.dancefloor_price}
           prices={this.props.prices}
         />
       </div>

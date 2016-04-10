@@ -33,6 +33,7 @@
         <h3><%= concert.band %> <b><%= concert.date %> <small><%= User.find(concert.user_id).email %></small></h3>
         <h4><%= Hall.find(concert.hall_id).name %></h4>
         <% unless concert.prices.empty? %><p><i>Цены: <%= concert.prices.join(', ') %></i><% end %>
+        <% unless concert.dancefloor_price.nil? %><p><i>танцпол: <%= concert.dancefloor_price %></i><% end %>
         </p>
        
 
