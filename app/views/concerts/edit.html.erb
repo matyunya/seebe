@@ -1,3 +1,10 @@
+<link href='https://fonts.googleapis.com/css?family=Kelly+Slab&subset=cyrillic' rel='stylesheet' type='text/css'>
+<style>
+.test {
+  font-family: 'Kelly Slab', cursive;
+}
+</style>
+
 <%= form_for(@concert) do |f| %>
 
 <div class="row">
@@ -10,7 +17,7 @@
 <div class="row">
     <div class="large-12 columns">
       <%= f.label "Описание" %>
-      <%= f.text_area :description %>
+      <%= f.text_area :description, rows: 18 %>
     </div>
 </div>
 
@@ -20,6 +27,7 @@
         <%= react_component('HallForm', {
             halls: halls_as_json,
             prices: @concert.prices,
+            tickets: tickets_as_json,
             hex: @hex,
             hall_id: @concert.hall_id,
             dancefloor_price: @concert.dancefloor_price

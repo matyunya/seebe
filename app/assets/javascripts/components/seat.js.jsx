@@ -9,7 +9,13 @@ var Seat = React.createClass({
 
     //TODO: отсортировать цвета по цене
   colors: [
+    '#DD7788',
+    '#AA4455',
+    '#771122',
+    '#DDAA77',
+    '#AA7744',
     '#771155',
+    '#774411',
     '#AA4488',
     '#CC99BB',
     '#114477',
@@ -23,13 +29,7 @@ var Seat = React.createClass({
     '#88CCAA',
     '#777711',
     '#AAAA44',
-    '#DDDD77',
-    '#774411',
-    '#AA7744',
-    '#DDAA77',
-    '#771122',
-    '#AA4455',
-    '#DD7788'
+    '#DDDD77'
   ],
 
   getColor: function() {
@@ -110,7 +110,7 @@ var Seat = React.createClass({
         color: this.getColor(),
         cursor: 'pointer',
         padding: '2px',
-        fontSize: '22px',
+        fontSize: '15px',
         fontWeight: '700'
       },
       tooltip: false,

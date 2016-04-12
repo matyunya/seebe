@@ -13,9 +13,10 @@ var TicketForm = React.createClass({
   render: function() {
     var style = {
       textAlign: 'center',
-      lineHeight: '18px',
+      lineHeight: '14px',
       minWidth: '300px',
-      maxWidth: '400px'
+      maxWidth: '1100px',
+      fontSize: '11px'
     }
     return (
       <div className="test" style={style}>

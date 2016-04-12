@@ -6,7 +6,7 @@ default: &default
 
 development:
   <<: *default
-  database: development
+  database: seebee
   host: localhost
 
 # Warning: The database defined as "test" will be erased and

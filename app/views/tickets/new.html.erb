@@ -22,7 +22,7 @@
         <%= react_component('TicketForm', {
             sections: sections_as_json,
             tickets: tickets_as_json,
-            prices: prices_as_json,
+            prices: @concert.prices,
             row_prices: row_prices_as_json
         }) %>
 

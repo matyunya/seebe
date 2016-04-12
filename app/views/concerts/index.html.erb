@@ -18,7 +18,6 @@
 <% end %>
 
 <% @concerts.each do |concert| %>
-<a href=<%= edit_concert_path(concert.id) %>>
     <% next if current_user.seller? && concert.status != Concert::MODERATED %>
 	<div class="large-2 columns">
 	   <%= image_tag concert.poster.url, width: '100' %>
@@ -41,6 +40,10 @@
             <%= link_to 'Продать билет', new_ticket_path(:concert => concert.id), {:class => 'button left small'} %>
         <% end %>
 
+        <% if (current_user.promoter? && concert.user_id == current_user.id) || current_user.admin? %>
+            <%= link_to 'Редактировать', edit_concert_path(concert.id), {:class => 'button left small'}  %>
+        <% end %>
+
         <% if current_user.admin? && concert.status != Concert::MODERATED %>
             <%= button_to "Отмодерирован",
             {:action => 'set_moderated', :id => concert.id },
@@ -48,7 +51,7 @@
         <% end %>
 
         <% if (current_user.promoter? && concert.user_id == current_user.id) || current_user.admin? %>
-            <%= button_to 'Удалить концерт', 
+            <%= button_to 'Удалить', 
                 concert_path(concert.id), 
                 method: :delete, 
                 :class => 'button left small alert', 
@@ -56,6 +59,5 @@
              %>
         <% end %>
     </div>
-    </a>
     <hr>
 <% end %>

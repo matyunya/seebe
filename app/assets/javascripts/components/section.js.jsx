@@ -28,11 +28,11 @@ var Section = React.createClass({
       padding: '2px',
       backgroundColor: '#C0C0C0',
       color: 'white',
-      fontSize: '12px',
+      fontSize: '11px',
       marginBottom: '3px'
     };
 
-    return <span>
+    return <span>{this.props.section.name}
             <div style={{marginBottom: '15px'}}>
             {this.props.section.rows.map(function(row) {
               return <Row row={row}

@@ -6,6 +6,7 @@ var HallForm = React.createClass({
     hall_id: React.PropTypes.number,
     prices: React.PropTypes.array,
     dancefloor_price: React.PropTypes.number,
+    tickets: React.PropTypes.array
   },
 
   getInitialState: function() {
@@ -116,6 +117,7 @@ var HallForm = React.createClass({
         <TicketPricesForm 
           id={this.state.hall_id}
           hall={this.props.halls.filter(this.halls)}
+          tickets={this.props.tickets}
           key={this.state.hall_id}
           updatePrices={this.updatePrices}
           updateDancefloorPrice={this.updateDancefloorPrice}

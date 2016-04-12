@@ -37,6 +37,12 @@ var Row = React.createClass({
     this.setState({selected: !this.state.selected});
   },
 
+  shouldComponentUpdate: function(nextProps, nextState) {
+    if (nextProps.prices === this.props.prices) {
+      return false;
+    }
+  },
+
   seats: function() {
     var seats = [];
     for (var i=1; i < this.props.row.seats + 1; i++) {

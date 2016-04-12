@@ -62,11 +62,9 @@ class Ticket < ActiveRecord::Base
 
   def set_price
     price_type = Row.find_by(section_id: self.section_id, number: self.row).prices[self.seat-1]
-    self.price = self.concert.prices[price_type]
+    regular_price = self.concert.prices[price_type]
 
     row_price = RowPrice.where(row_id: self.row_id, seat: self.seat, hex: self.concert.hex).first;
-    self.price = row_price.price unless row_price.nil?
-
-    self.price = Concert.find(self.concert_id).dancefloor_price if self.dancefloor
+    self.price = row_price.nil? ? regular_price : row_price.price
   end
 end
