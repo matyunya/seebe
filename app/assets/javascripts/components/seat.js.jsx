@@ -49,9 +49,10 @@ var Seat = React.createClass({
         style: {
           cursor: 'pointer',
           color: '#D0D0D0',
-          backgroundColor: this.getColor(),
-          padding: '2px',
-          fontSize: this.state.style.fontSize
+          padding: 2,
+          opacity: 1,
+          fontSize: this.state.style.fontSize + 10,
+          verticalAlign: 'middle'
         },
         tooltip: true,
         x: e.clientX,
@@ -64,8 +65,9 @@ var Seat = React.createClass({
       style: {
         color: this.getColor(),
         cursor: 'pointer',
-        padding: '2px',
-        fontSize: this.state.style.fontSize
+        padding: 2,
+        fontSize: this.state.style.fontSize - 10,
+        verticalAlign: 'middle'
       },
       tooltip: false
     });
@@ -76,7 +78,9 @@ var Seat = React.createClass({
       style: {
         color: this.getColor(),
         cursor: 'pointer',
-        padding: '2px'
+        padding: 2,
+        verticalAlign: 'middle',
+        fontSize: 13
       },
       tooltip: false,
       selected: false
@@ -97,7 +101,8 @@ var Seat = React.createClass({
         style: {
           color: this.getColor(),
           cursor: 'pointer',
-          padding: '2px'
+          verticalAlign: 'middle',
+          padding: 2
         },
         tooltip: false,
         selected: false
@@ -109,9 +114,9 @@ var Seat = React.createClass({
       style: {
         color: this.getColor(),
         cursor: 'pointer',
-        padding: '2px',
-        fontSize: '15px',
-        fontWeight: '700'
+        padding: 2,
+        fontSize: 25,
+        verticalAlign: 'middle'
       },
       tooltip: false,
       selected: true
@@ -125,7 +130,7 @@ var Seat = React.createClass({
 
     if (this.props.price !== props.price) {
       this.select();
-      this.setState({selected: false, style: {fontSize: '16px', cursor: 'pointer', padding: '2px', color: this.getColor()}});
+      this.setState({selected: false, style: {fontSize: '16', cursor: 'pointer', padding: 2, color: this.getColor()}});
     }
   },
 
@@ -133,7 +138,6 @@ var Seat = React.createClass({
     return <span style={this.state.style} onMouseOver={this.showTooltip} onMouseOut={this.hideTooltip} onClick={this.select}>
       <Tooltip
        sectionName={this.props.sectionName}
-       sectionId={this.props.sectionId}
        seat={this.props.seat}
        row={this.props.row}
        show={this.state.tooltip}
@@ -143,7 +147,7 @@ var Seat = React.createClass({
        y={this.state.y}
      />
       <Inputs selected={this.state.selected} row={this.props.row} seat={this.props.seat} rowId={this.props.rowId} sectionId={this.props.sectionId} />
-      {this.props.seat}
+      &#9679;
       </span>;
   }
 });
