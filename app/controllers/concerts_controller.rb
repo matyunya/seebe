@@ -18,6 +18,7 @@ class ConcertsController < AdminController
   end
 
   def edit
+    authenticate_promoter
     @concert = Concert.find(params[:id])
   end
 

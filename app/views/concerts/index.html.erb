@@ -1,7 +1,7 @@
 <style>
 .concert_path:hover {
   background-color: #eee;
-  color:red;
+  color:crimson;
 }
 
 .columns {
@@ -40,7 +40,7 @@
             <%= link_to 'Продать билет', new_ticket_path(:concert => concert.id), {:class => 'button left small'} %>
         <% end %>
 
-        <% if (current_user.promoter? && concert.user_id == current_user.id) || current_user.admin? %>
+        <% if (current_user.promoter? && concert.user_id == current_user.id) || current_user.admin? && concert.date > Date.today %>
             <%= link_to 'Редактировать', edit_concert_path(concert.id), {:class => 'button left small'}  %>
         <% end %>
 

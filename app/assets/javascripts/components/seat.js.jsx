@@ -112,9 +112,19 @@ var Seat = React.createClass({
   },
 
   render: function() {
-    return <span style={this.state.style} onMouseOver={this.showTooltip} onMouseOut={this.props.hideTooltip} onClick={this.select}>
+    return <span
+          style={this.state.style}
+          onMouseOver={this.showTooltip}
+          onMouseOut={this.props.hideTooltip}
+          onClick={this.select}>
 
-      <Inputs selected={this.state.selected} row={this.props.row} seat={this.props.seat} rowId={this.props.rowId} sectionId={this.props.sectionId} />
+      <Inputs
+        selected={this.state.selected}
+        row={this.props.row}
+        seat={this.props.seat}
+        rowId={this.props.rowId}
+        sectionId={this.props.sectionId}
+      />
       &#9679;
       </span>;
   }

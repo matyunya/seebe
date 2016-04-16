@@ -7,11 +7,11 @@ class AdminController < ApplicationController
   end
 
   def authenticate_seller
-    redirect_to_back unless current_user.seller?
+    redirect_to_back unless current_user.seller? || current_user.admin?
   end
 
   def authenticate_promoter
-    redirect_to_back unless current_user.promoter?
+    redirect_to_back unless current_user.promoter? || current_user.admin?
   end
 
   def redirect_to_back(message: 'Доступ запрещен')

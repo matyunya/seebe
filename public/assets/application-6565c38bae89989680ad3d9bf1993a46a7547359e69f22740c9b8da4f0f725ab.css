@@ -6901,12 +6901,13 @@ meta.foundation-mq-topbar {
 
 /* line 156, /Users/mac/.rvm/gems/ruby-2.2.4/gems/foundation-rails-5.5.3.2/vendor/assets/stylesheets/foundation/components/_top-bar.scss */
 .top-bar {
-  background: #333333;
+  background: #111111;
   height: 2.8125rem;
   line-height: 2.8125rem;
   margin-bottom: 0;
   overflow: hidden;
   position: relative;
+  border: 12px inset Bisque;
 }
 /* line 165, /Users/mac/.rvm/gems/ruby-2.2.4/gems/foundation-rails-5.5.3.2/vendor/assets/stylesheets/foundation/components/_top-bar.scss */
 .top-bar ul {

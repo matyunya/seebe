@@ -18,8 +18,8 @@
 
 $primary: #446CB3;
 $secondary: #ADB2BD;
-$info: #89c4f4;
-$alert: #F22613;
+$info: khaki;
+$alert: crimson;
 $success: #2E8B57;
 $warning: #F89406;
 
@@ -92,4 +92,13 @@ main {
 
 .top-bar:before, .top-bar:after {
     
+}
+
+a {
+  color: darkBlue;
+  text-decoration: underline;
+}
+
+.top-bar-section a {
+  text-decoration: none;
 }

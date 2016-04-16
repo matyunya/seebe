@@ -3,12 +3,12 @@
 
 <% @tickets.each do |ticket| %>
     <div class="large-12 columns" >
-        <span style=<%= ticket.transfer ? "color:green" : "color:red" %>>
+        <span style=<%= ticket.transfer ? "color:olive" : "color:crimson" %>>
             <small>
                 <%= ticket.created_at %> <%= User.find(ticket.user_id).name %>
             </small>
         </span>
-        <span style=<%= ticket.check_in ? "color:green" : "color:red" %>>
+        <span style=<%= ticket.check_in ? "color:olive" : "color:crimson" %>>
             <small>
                 <%= "Не" unless ticket.check_in %> прошел
             </small>
