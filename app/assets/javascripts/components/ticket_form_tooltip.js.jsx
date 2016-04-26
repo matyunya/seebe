@@ -29,7 +29,8 @@ var Tooltip = React.createClass({
       top: this.props.y + 20,
       lineHeight: '25px',
       color: 'white',
-      backgroundColor: 'rgba(0,0,0,0.4)'
+      backgroundColor: 'rgba(0,0,0,0.4)',
+      zIndex: 1000
     };
 
     return (

@@ -65,11 +65,10 @@ class TicketsController < AdminController
       redirect_to tickets_path, alert: 'Возврат не был оформлен'
     end
   end
-
   
   def sections_as_json
     @json = ''
-    @concert.hall.sections.each_with_index do |hall, index|
+    @concert.hall.sections.reverse.each_with_index do |hall, index|
       @json += {index: hall}.to_json
     end
   end
