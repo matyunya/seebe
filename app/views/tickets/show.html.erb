@@ -14,7 +14,7 @@
 
       <h3>
         <small>сектор:</small> <%= @ticket.section.name %> 
-       <% unless @ticket.dancefloor %> <small>ряд:</small> <%=@ticket.row%> <small>место:</small> <%=@ticket.seat%><% end %>
+       <% unless @ticket.dancefloor %> <small>ряд:</small> <%= @ticket.row %> <small>место:</small> <%= @ticket.seat %><% end %>
       </h3>
 
       <div class="org">
@@ -27,13 +27,12 @@
 
 <style>
     .age, .vertical-text, .org, .image {
-        display: none;
+      display: none;
     }
 
-    @page  
-    { 
-        size: auto;
-        margin: 0mm 0mm 0mm 0mm;
+    @page { 
+      size: auto;
+      margin: 0mm 0mm 0mm 0mm;
     }
 
     body  
@@ -42,14 +41,8 @@
     }
 
     @media print {
-      .age, .vertical-text, .org, .image {
+      .age, .vertical-text, .org {
         display: block;
-      }
-
-      .age {
-        position: fixed;
-        top: 40;
-        left: 40;
       }
 
       main {
@@ -106,7 +99,7 @@
       }
         
       header nav, footer {
-          display: none;
+        display: none;
       }
 
       .columns {
@@ -122,9 +115,10 @@
       }
 
       .image {
+        display: inline;
         position: fixed;
         left:20px;
-        top:20px;
+        top:25px;
       }
 
       h2 {
@@ -159,11 +153,11 @@
       }
 
       .qr {
-          display: block;
-          padding:8px;
-          padding-top: 70px;
-          right:110px;
-          position:fixed;
+        display: block;
+        padding:8px;
+        padding-top: 70px;
+        right:110px;
+        position:fixed;
       }
     }
 }
