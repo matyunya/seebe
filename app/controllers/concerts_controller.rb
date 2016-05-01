@@ -20,6 +20,7 @@ class ConcertsController < AdminController
   def edit
     authenticate_promoter
     @concert = Concert.find(params[:id])
+    @hex = @concert.hex
   end
 
   def update

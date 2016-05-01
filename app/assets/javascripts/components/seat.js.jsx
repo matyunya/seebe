@@ -114,7 +114,7 @@ var Seat = React.createClass({
   ],
 
   getColor: function() {
-    if (this.props.taken || !this.props.price) {
+    if (this.props.taken || !this.props.price || this.props.price === 0) {
       return '#D0D0D0';
     }
 

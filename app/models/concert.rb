@@ -22,6 +22,7 @@ class Concert < ActiveRecord::Base
   belongs_to :user
   belongs_to :hall
   after_create :update_row_prices
+  after_update :update_row_prices
 
   def update_row_prices
     RowPrice.where(hex: self.hex).update_all(concert_id: self.id)

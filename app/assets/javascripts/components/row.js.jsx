@@ -39,9 +39,7 @@ var Row = React.createClass({
   },
 
   shouldComponentUpdate: function(nextProps, nextState) {
-    if (nextProps.prices === this.props.prices) {
-      return false;
-    }
+    return (nextProps.prices !== this.props.prices || nextProps.row_prices !== this.props.row_prices);
   },
 
   seats: function() {
