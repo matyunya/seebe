@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160404204614) do
+ActiveRecord::Schema.define(version: 20160501100256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20160404204614) do
     t.integer  "hall_id"
     t.integer  "rows",       default: [],              array: true
     t.boolean  "dancefloor"
+    t.integer  "price_type"
   end
 
   create_table "tickets", force: :cascade do |t|

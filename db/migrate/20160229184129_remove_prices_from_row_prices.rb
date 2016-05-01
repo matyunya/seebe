@@ -1,5 +1,5 @@
 class RemovePricesFromRowPrices < ActiveRecord::Migration
   def change
-    remove_column :row_prices, :prices, :integer
+    remove_column :sections, :rows, :integer, array: true
   end
 end

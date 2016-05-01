@@ -4,16 +4,24 @@ class Ticket < ActiveRecord::Base
   belongs_to :user
   belongs_to :section
   belongs_to :cashbox
-  validates :section_id, :row, :seat, presence: true, unless: :dancefloor
-  validates :concert_id, uniqueness: { scope: [:row, :seat] }, presence: true, unless: :dancefloor
+  validates :section_id, :row, :seat, presence: true, unless: :dancefloor?
+  validates :concert_id, uniqueness: { scope: [:row, :seat] }, presence: true, unless: :dancefloor?
   default_scope {order('created_at DESC')}
   before_save :prepare, :if => :new_record?
 
   def prepare
     self.url_hash = SecureRandom.uuid
-    self.price = self.dancefloor ? self.concert.dancefloor_price : set_price;
-    self.section_id = self.dancefloor ? Section.find_by(hall_id: self.concert.hall.id, dancefloor: true).id : self.section_id;
+    self.price = self.dancefloor? ? dancefloor_price : set_price
+    self.section_id = self.dancefloor ? Section.find_by(hall_id: self.concert.hall.id, dancefloor: true).id : self.section_id
     set_discount
+  end
+
+  def dancefloor_price
+    self.price = self.dancefloor ? concert.dancefloor_price : self.concert.prices[self.section.price_type]
+  end
+
+  def dancefloor?
+    self.dancefloor || !self.section.price_type.nil?
   end
 
   def set_discount
@@ -63,7 +71,6 @@ class Ticket < ActiveRecord::Base
   def set_price
     price_type = Row.find_by(section_id: self.section_id, number: self.row).prices[self.seat-1]
     regular_price = self.concert.prices[price_type]
-
     row_price = RowPrice.where(row_id: self.row_id, seat: self.seat, hex: self.concert.hex).first;
     self.price = row_price.nil? ? regular_price : row_price.price
   end

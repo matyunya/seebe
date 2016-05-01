@@ -20,6 +20,7 @@ class TicketsController < AdminController
     @ticket = Ticket.create(ticket_params)
     @ticket.user_id = current_user.id
     @ticket.cashbox_id = current_user.cashbox_id
+    logger.debug "#{@ticket} #{ticket_params}"
     if @ticket.save
       TicketMailer.ticket_email(@ticket).deliver_now unless @ticket.email == ''
       redirect_to ticket_url(@ticket.url_hash), notice: "Билет продан за #{@ticket.price} руб."

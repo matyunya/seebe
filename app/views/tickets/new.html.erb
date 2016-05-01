@@ -37,6 +37,17 @@
   </div>
   <% end %>
 
+  <% @concert.hall.sections.each do |s| %>
+    <% unless s.price_type.nil? %>
+    <div class="row">
+      <div class="large-12 columns">
+        <%= f.label "section_id_#{s.id}", "#{s.name} #{@concert.prices[s.price_type]} руб." %>
+        <%= f.radio_button :section_id, s.id %>
+       </div>
+    </div>
+    <% end %>
+  <% end %>
+
   <div class="row">
     <div class="large-12 columns">
       <%= f.label "Скидка" %>
