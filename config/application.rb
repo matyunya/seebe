@@ -21,6 +21,7 @@ module RailsDeviseRoles
     config.i18n.default_locale = :ru
     # For Foundation 5
     config.assets.precompile += %w( vendor/modernizr )
+    config.assets.version = 1.1
 
     # Date
     Date::DATE_FORMATS[:default] = "%d/%m/%Y" 
