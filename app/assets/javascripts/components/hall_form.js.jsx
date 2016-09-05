@@ -26,7 +26,7 @@ var HallForm = React.createClass({
   },
 
   getSections: function() {
-    return this.props.halls.filter(function(h) {return h.id == this.state.hall_id}.bind(this))[0].sections;
+    return this.props.halls.filter(function(h) {return h.id == this.state.hall_id}.bind(this))[0].sections.reverse;
   },
 
   hasDancefloor: function() {
