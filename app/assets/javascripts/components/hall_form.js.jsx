@@ -27,7 +27,6 @@ var HallForm = React.createClass({
 
   getSections: function() {
     s = this.props.halls.filter(function(h) {return h.id == this.state.hall_id}.bind(this))[0].sections;
-    s.reverse();
     return s;
   },
 
@@ -112,7 +111,7 @@ var HallForm = React.createClass({
             <option value={hall.id} key={hall.id}>{hall.name}</option>
           )}
         </select>
-        <TicketForm sections={this.getSections()} tickets={[]} prices={this.state.prices} row_prices={this.state.row_prices} setSelected={this.setSelected} /> 
+        <TicketForm sections={this.getSections().reverse()} tickets={[]} prices={this.state.prices} row_prices={this.state.row_prices} setSelected={this.setSelected} /> 
         <label>Укажите цену для выбранных мест</label>
         <input type="number" name="set_price" id="set_price" value={this.state.priceToSet} onChange={this.changePriceToSet} />
         <button type="button" onClick={this.setPrices} className="tiny button">Применить</button>
