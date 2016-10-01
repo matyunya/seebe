@@ -8,7 +8,7 @@ Rails.application.configure do
   config.action_controller.perform_caching = true
 
   config.assets.js_compressor = :uglifier
-  # config.assets.css_compressor = :sass
+  config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.serve_static_assets = false
@@ -22,7 +22,7 @@ Rails.application.configure do
 
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
-  config.assets.version = 1.5
+  config.assets.version = 1.6
 
   config.action_mailer.smtp_settings = {
     address: "smtp.gmail.com",
